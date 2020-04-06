@@ -18,7 +18,7 @@ import {
     stopReportingRuntimeErrors,
 } from 'react-error-overlay';
 
-setEditorHandler((errorLocation: any) => {
+setEditorHandler((errorLocation: { fileName: string; lineNumber: number }) => {
     const fileName = encodeURIComponent(errorLocation.fileName);
     const lineNumber = encodeURIComponent(errorLocation.lineNumber || 1);
     fetch(
@@ -28,7 +28,7 @@ setEditorHandler((errorLocation: any) => {
 });
 
 hotClient.useCustomOverlay({
-    showProblems(type: any, errors: any) {
+    showProblems(_0: unknown, errors: string[]) {
         // @ts-ignore
         const formatted = formatWebpackMessages({
             errors,

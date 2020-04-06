@@ -1,5 +1,6 @@
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function dataIdFromObject(obj: any) {
     switch (obj.__typename) {
         case 'NewsItem':

@@ -15,16 +15,18 @@ export default async function codegen() {
     const promiseRemoveOldTypes = cleanDir('{./,src/**/}__generated__');
 
     const promiseCompileSchemaJs = await runWebpack(
-        {
-            ...serverConfig,
-            entry: './src/data/schema',
-            output: {
-                path: serverConfig.output.path,
-                filename: 'schema.js',
-                libraryTarget: 'commonjs2',
+        [
+            {
+                ...serverConfig,
+                entry: './src/data/schema',
+                output: {
+                    path: serverConfig.output!.path,
+                    filename: 'schema.js',
+                    libraryTarget: 'commonjs2',
+                },
             },
-        },
-        serverConfig.stats,
+        ],
+        serverConfig.stats!,
     );
 
     await Promise.all([promiseRemoveOldTypes, promiseCompileSchemaJs]);

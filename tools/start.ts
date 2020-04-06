@@ -1,12 +1,4 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import path from 'path';
 import express, { Request, Response, Application } from 'express';
 import browserSync from 'browser-sync';
@@ -182,6 +174,7 @@ async function start() {
     // eslint-disable-next-line global-require, import/no-unresolved
     reloadApp();
     appPromiseIsResolved = true;
+    // noinspection JSUnusedAssignment
     appPromiseResolve!();
 
     const port = process.env.PORT ? Number(process.env.PORT) : undefined;

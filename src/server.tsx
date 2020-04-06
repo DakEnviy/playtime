@@ -185,15 +185,12 @@ app.get('*', async (req, res, next) => {
             return;
         }
 
-        const data: HtmlProps = { ...route };
         const rootComponent = (
             <App context={context} client={apolloClient} insertCss={insertCss}>
                 {route.component}
             </App>
         );
         await getDataFromTree(rootComponent);
-        data.children = await ReactDOM.renderToString(rootComponent);
-        data.styles = [{ id: 'css', cssText: [...css].join('') }];
 
         const scripts = new Set<string>();
         const addChunk = (chunk: string) => {
@@ -207,14 +204,21 @@ app.get('*', async (req, res, next) => {
         if (route.chunk) addChunk(route.chunk);
         if (route.chunks) route.chunks.forEach(addChunk);
 
-        data.scripts = Array.from(scripts);
-        data.app = {
-            apiUrl: config.api.clientUrl,
+        const data: HtmlProps = {
+            title: route.title!,
+            description: route.description!,
+            children: await ReactDOM.renderToString(rootComponent),
+            styles: [{ id: 'css', cssText: [...css].join('') }],
+            scripts: Array.from(scripts),
+            app: {
+                apiUrl: config.api.clientUrl,
 
-            // To restore apollo cache in client.js
-            cache: apolloClient.extract(),
+                // To restore apollo cache in client.js
+                cache: apolloClient.extract(),
+            },
         };
 
+        // noinspection RequiredAttributes
         const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
         res.status(route.status || 200);
         res.send(`<!doctype html>${html}`);

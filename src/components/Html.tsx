@@ -6,18 +6,21 @@ import config from '../config';
 /* eslint-disable react/no-danger */
 
 export interface HtmlProps {
+    // Defined in route
     title: string;
     description: string;
+
+    // Calculated in server / client - side
     styles?: Array<{
         id: string;
         cssText: string;
     }>;
-
     scripts?: string[];
     app: object;
     children: string;
 }
 
+// noinspection HtmlUnknownTarget,JSUnresolvedLibraryURL
 const Html: FC<HtmlProps> = ({ title, description, styles = [], scripts = [], app, children }) => (
     <html className="no-js" lang="en">
         <head>

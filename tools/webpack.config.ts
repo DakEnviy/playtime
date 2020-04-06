@@ -1,12 +1,4 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
@@ -40,7 +32,7 @@ const staticAssetName = isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext
 // client-side (client.js) and server-side (server.js) bundles
 // -----------------------------------------------------------------------------
 
-const config = {
+const config: webpack.Configuration = {
     context: ROOT_DIR,
 
     mode: isDebug ? 'development' : 'production',
@@ -231,12 +223,6 @@ const config = {
                 loader: 'raw-loader',
             },
 
-            // Convert Markdown into HTML
-            {
-                test: /\.md$/,
-                loader: path.resolve(__dirname, './lib/markdown-loader'),
-            },
-
             // Return public URL for all assets unless explicitly excluded
             // DO NOT FORGET to update `exclude` list when you adding a new loader
             {
@@ -289,14 +275,14 @@ const config = {
 
     // Choose a developer tool to enhance debugging
     // https://webpack.js.org/configuration/devtool/#devtool
-    devtool: isDebug ? 'cheap-module-inline-source-map' : 'source-map',
+    devtool: isDebug ? 'inline-cheap-module-source-map' : 'source-map',
 };
 
 //
 // Configuration for the client-side bundle (client.js)
 // -----------------------------------------------------------------------------
 
-const clientConfig = {
+const clientConfig: webpack.Configuration = {
     ...config,
 
     name: 'client',
@@ -386,7 +372,7 @@ const clientConfig = {
 // Configuration for the server-side bundle (server.js)
 // -----------------------------------------------------------------------------
 
-const serverConfig = {
+const serverConfig: webpack.Configuration = {
     ...config,
 
     name: 'server',
@@ -413,7 +399,7 @@ const serverConfig = {
     module: {
         ...config.module,
 
-        rules: overrideRules(config.module.rules, (rule: any) => {
+        rules: overrideRules(config.module!.rules, (rule: any) => {
             // Override babel-preset-env configuration for Node.js
             if (rule.loader === 'babel-loader') {
                 return {

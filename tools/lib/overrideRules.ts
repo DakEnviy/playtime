@@ -1,14 +1,6 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 function overrideRules(rules: any, patch: any) {
-    return rules.map((ruleToPatch: any) => {
+    return rules.map((ruleToPatch: object) => {
         let rule = patch(ruleToPatch);
         if (rule.rules) {
             rule = { ...rule, rules: overrideRules(rule.rules, patch) };

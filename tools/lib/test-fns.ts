@@ -27,7 +27,7 @@ export async function waitApp(port: number) {
 export async function killApp(app: ExecaChildProcess) {
     info(`Terminating app ${app.pid}...`);
     await new Promise((resolve, reject) => {
-        terminate(app.pid, (err: any) => {
+        terminate(app.pid, (err: unknown) => {
             if (err) return reject(err);
             return resolve();
         });

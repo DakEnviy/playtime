@@ -1,17 +1,8 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 export function format(time: Date) {
     return time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1');
 }
 
-function run(task: (arg0: any) => Promise<any>, options?: any) {
+function run(task: (arg0: unknown) => Promise<unknown>, options?: unknown) {
     // const task = typeof fn.default === 'undefined' ? fn : fn.default;
     const start = new Date();
     console.info(`[${format(start)}] Starting '${task.name}${options ? ` (${options})` : ''}'...`);

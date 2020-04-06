@@ -1,6 +1,6 @@
 import webpack from 'webpack';
 
-export default function runWebpack(config: any, statsInfo: webpack.Options.Stats) {
+export default function runWebpack(config: webpack.Configuration[], statsInfo: webpack.Options.Stats) {
     return new Promise((resolve, reject) => {
         webpack(config).run((err, stats) => {
             if (err) {

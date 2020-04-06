@@ -1,22 +1,13 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React, { ReactNode } from 'react';
 
 import history from '../../history';
 
-function isLeftClickEvent(event: MouseEvent) {
+function isLeftClickEvent(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     return event.button === 0;
 }
 
-function isModifiedEvent(event: MouseEvent) {
-    return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
+function isModifiedEvent(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    return event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
 }
 
 type PropTypes = {
@@ -30,7 +21,7 @@ const Link = ({ to, children, onClick, ...restProps }: PropTypes) => (
     <a
         href={to}
         {...restProps}
-        onClick={(event: any) => {
+        onClick={event => {
             if (onClick) {
                 onClick(event);
             }
@@ -39,7 +30,7 @@ const Link = ({ to, children, onClick, ...restProps }: PropTypes) => (
                 return;
             }
 
-            if (event.defaultPrevented === true) {
+            if (event.defaultPrevented) {
                 return;
             }
 
