@@ -2,8 +2,8 @@ import { createContext } from 'react';
 
 export type AppContextTypes = {
     pathname: string;
-    query?: Object;
-    params?: Object;
+    query?: object;
+    params?: object;
 };
 
 const AppContext = createContext<AppContextTypes>({

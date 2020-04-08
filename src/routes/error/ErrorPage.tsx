@@ -1,26 +1,17 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
 import s from './ErrorPage.css';
 
-type PropTypes = {
+interface ErrorProps {
     error?: {
         name: string;
         message: string;
         stack: string;
     };
-};
+}
 
-const ErrorPage = ({ error }: PropTypes) => {
+export const ErrorPage: React.FC<ErrorProps> = ({ error }) => {
     if (__DEV__ && error) {
         return (
             <div>
@@ -38,5 +29,4 @@ const ErrorPage = ({ error }: PropTypes) => {
     );
 };
 
-export { ErrorPage as ErrorPageWithoutStyle };
 export default withStyles(s)(ErrorPage);

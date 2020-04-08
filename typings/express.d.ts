@@ -1,6 +1,7 @@
 import 'express-serve-static-core';
 
 declare module 'express-serve-static-core' {
+    // @ts-ignore
     import { Express } from 'express';
 
     interface Application {

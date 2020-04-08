@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 export function updateTag(tagName: string, keyName: string, keyValue: string, attrName: string, attrValue: string) {
     const node = document.head.querySelector(`${tagName}[${keyName}="${keyValue}"]`);
     if (node && node.getAttribute(attrName) === attrValue) return;
@@ -15,12 +6,11 @@ export function updateTag(tagName: string, keyName: string, keyValue: string, at
     if (node) {
         node.parentNode!.removeChild(node);
     }
-    if (typeof attrValue === 'string') {
-        const nextNode = document.createElement(tagName);
-        nextNode.setAttribute(keyName, keyValue);
-        nextNode.setAttribute(attrName, attrValue);
-        document.head.appendChild(nextNode);
-    }
+
+    const nextNode = document.createElement(tagName);
+    nextNode.setAttribute(keyName, keyValue);
+    nextNode.setAttribute(attrName, attrValue);
+    document.head.appendChild(nextNode);
 }
 
 export function updateMeta(name: string, content: string) {

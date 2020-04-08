@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import path from 'path';
 import express, { NextFunction, Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
@@ -23,7 +14,7 @@ import { AppContextTypes } from './context';
 import createApolloClient from './core/createApolloClient/createApolloClient.server';
 import App from './components/App';
 import Html, { HtmlProps } from './components/Html';
-import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
+import { ErrorPage } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import passport from './passport';
 import router from './router';
@@ -118,19 +109,13 @@ app.get('/logout', (_0, res) => {
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-// https://github.com/graphql/express-graphql#options
+// https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express
 
 const server = new ApolloServer({
     schema: AppModule.schema,
     uploads: false,
     introspection: __DEV__,
-    playground: __DEV__
-        ? {
-              settings: {
-                  'request.credentials': 'include',
-              },
-          }
-        : false,
+    playground: __DEV__ ? { settings: { 'request.credentials': 'include' } } : false,
     debug: __DEV__,
     tracing: __DEV__,
     context: ({ req, res }) => ({
@@ -244,7 +229,7 @@ app.use((err: any, _0: Request, res: Response, _next: NextFunction) => {
             description={err.message}
             styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
         >
-            {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
+            {ReactDOM.renderToString(<ErrorPage error={err} />)}
         </Html>,
     );
     res.status(err.status || 500);
@@ -267,6 +252,7 @@ if (!module.hot) {
 // Hot Module Replacement
 // -----------------------------------------------------------------------------
 if (module.hot) {
+    // noinspection JSIgnoredPromiseFromCall
     module.hot.accept('./router');
 }
 
