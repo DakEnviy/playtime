@@ -1,6 +1,6 @@
 import { GraphQLModule } from '@graphql-modules/core';
 
-import { RootSession } from '../app';
+import { ApolloContext } from '../../../interfaces/apollo';
 import ScalarsModule from '../scalars';
 import UsersProvider from './users.provider';
 import schema from './schema.graphql';
@@ -10,15 +10,13 @@ export interface UsersContext {
     user?: Express.User;
 }
 
-const UsersModule = new GraphQLModule<{}, RootSession, UsersContext>({
+const UsersModule = new GraphQLModule<{}, ApolloContext, UsersContext>({
     name: 'users',
     imports: [ScalarsModule],
     providers: [UsersProvider],
     typeDefs: schema,
     resolvers,
-    context: session => ({
-        user: session.user,
-    }),
+    context: ({ user }) => ({ user }),
 });
 
 export default UsersModule;

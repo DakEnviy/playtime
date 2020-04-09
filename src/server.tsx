@@ -18,12 +18,13 @@ import { ErrorPage } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import passport from './passport';
 import router from './router';
-import db from './data/database';
+import { database } from './data/database';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 // @ts-ignore
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
 import AppModule from './data/modules/app';
+import { ApolloContext } from './interfaces/apollo';
 
 process.on('unhandledRejection', (reason, p) => {
     console.error('Unhandled Rejection at:', p, 'reason:', reason);
@@ -118,11 +119,13 @@ const server = new ApolloServer({
     playground: __DEV__ ? { settings: { 'request.credentials': 'include' } } : false,
     debug: __DEV__,
     tracing: __DEV__,
-    context: ({ req, res }) => ({
-        req,
-        res,
-        user: req.user,
-    }),
+    context({ req, res }): ApolloContext {
+        return {
+            req,
+            res,
+            user: req.user,
+        };
+    },
 });
 server.applyMiddleware({ app });
 
@@ -239,7 +242,7 @@ app.use((err: any, _0: Request, res: Response, _next: NextFunction) => {
 //
 // Launch the server
 // -----------------------------------------------------------------------------
-const promise = db.sequelize.sync().catch((err: Error) => console.error(err.stack));
+const promise = database.sequelize.sync().catch((err: Error) => console.error(err.stack));
 if (!module.hot) {
     promise.then(() => {
         app.listen(config.port, () => {
