@@ -15,7 +15,7 @@ import createApolloClient from './core/createApolloClient/createApolloClient.ser
 import App from './components/App';
 import Html, { HtmlProps } from './components/Html';
 import { ErrorPage } from './routes/error/ErrorPage';
-import errorPageStyle from './routes/error/ErrorPage.css';
+import errorPageStyle from './routes/error/ErrorPage.scss';
 import passport from './passport';
 import router from './router';
 import { database } from './data/database';
@@ -172,7 +172,7 @@ app.get('*', async (req, res, next) => {
         }
 
         const rootComponent = (
-            <App context={context} client={apolloClient} insertCss={insertCss}>
+            <App client={apolloClient} context={context} insertCss={insertCss}>
                 {route.component}
             </App>
         );

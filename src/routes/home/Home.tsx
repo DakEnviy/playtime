@@ -1,7 +1,7 @@
 import React from 'react';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-import s from './Home.css';
+import s from './Home.scss';
 
 interface HomeProps {}
 

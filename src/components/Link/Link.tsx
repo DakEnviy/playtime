@@ -1,23 +1,15 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import history from '../../history';
+import { isLeftClickEvent, isModifiedEvent } from '../../utils/link';
 
-function isLeftClickEvent(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
-    return event.button === 0;
-}
-
-function isModifiedEvent(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
-    return event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
-}
-
-type PropTypes = {
+interface LinkProps {
     to: string;
     onClick?: Function;
-    children?: ReactNode;
     className?: string;
-};
+}
 
-const Link = ({ to, children, onClick, ...restProps }: PropTypes) => (
+const Link: React.FC<LinkProps> = ({ to, onClick, children, ...restProps }) => (
     <a
         href={to}
         {...restProps}

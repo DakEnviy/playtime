@@ -1,15 +1,9 @@
-import React, { FunctionComponent } from 'react';
-import useStyles from 'isomorphic-style-loader/useStyles';
-import normalizeCss from 'normalize.css';
+import React from 'react';
 
-import s from './Layout.css';
+interface LayoutProps {
+    children: React.ReactElement;
+}
 
-interface PropTypes {}
-
-const Layout: FunctionComponent<PropTypes> = ({ children }) => {
-    useStyles(normalizeCss, s);
-
-    return <div>{children}</div>;
-};
+const Layout: React.FC<LayoutProps> = ({ children }) => children;
 
 export default Layout;

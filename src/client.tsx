@@ -73,7 +73,7 @@ async function onLocationChange(location: Location, action?: Action) {
 
         const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
         appInstance = renderReactApp(
-            <App context={context} client={apolloClient} insertCss={insertCss}>
+            <App client={apolloClient} context={context} insertCss={insertCss}>
                 {route.component}
             </App>,
             container,

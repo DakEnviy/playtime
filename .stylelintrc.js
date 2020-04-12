@@ -9,6 +9,9 @@ module.exports = {
         // stylelint plugin to sort CSS rules content with specified order
         // https://github.com/hudochenkov/stylelint-order
         'stylelint-order',
+        // plugin for support SCSS styles
+        // https://github.com/kristerkari/stylelint-scss
+        'stylelint-scss',
     ],
 
     rules: {
@@ -43,5 +46,9 @@ module.exports = {
 
         // https://github.com/hudochenkov/stylelint-order/blob/master/rules/properties-order/README.md
         'order/properties-order': [],
+
+        // https://github.com/kristerkari/stylelint-scss/tree/master/src/rules/at-rule-no-unknown
+        'at-rule-no-unknown': null,
+        'scss/at-rule-no-unknown': true,
     },
 };

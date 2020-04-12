@@ -1,4 +1,4 @@
-@import '../variables.css';
+@import '../../assets/styles/vars';
 
 /*
  * normalize.css is imported in JS file.
@@ -11,11 +11,11 @@
  * ========================================================================== */
 
 html {
-  color: #222;
-  font-weight: 100;
-  font-size: 1em; /* ~16px; */
-  font-family: var(--font-family-base);
-  line-height: 1.375; /* ~22px */
+  font-family: sans-serif; // TODO: base font family
+  font-size: 14px; // TODO: base font size
+  font-weight: 400;
+  line-height: 1.375;
+  color: $color-bg;
 }
 
 body {
@@ -23,7 +23,7 @@ body {
 }
 
 a {
-  color: #0074c2;
+  color: #0074c2; // TODO: change it later
 }
 
 /*
@@ -131,9 +131,9 @@ textarea {
   }
 
   /*
-   * Don't show links that are fragment identifiers,
-   * or use the `javascript:` pseudo protocol
-   */
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
 
   a[href^='#']::after,
   a[href^='javascript:']::after {
@@ -147,9 +147,9 @@ textarea {
   }
 
   /*
-   * Printing Tables:
-   * http://css-discuss.incutio.com/wiki/Printing_Tables
-   */
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
 
   thead {
     display: table-header-group;

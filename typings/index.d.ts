@@ -45,6 +45,8 @@ declare module 'isomorphic-style-loader/useStyles' {
 
 // Declare non-ts modules to be loaded by webpack loaders
 declare module '*.css';
+declare module '*.scss';
+declare module '*.sass';
 declare module '*.md';
 declare module '*.png';
 declare module '*.graphql' {

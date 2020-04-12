@@ -1,26 +1,17 @@
 import React from 'react';
 import useStyles from 'isomorphic-style-loader/useStyles';
+import normalizeCss from 'normalize.css';
 
-import s from './Page.css';
+import s from './Page.scss';
 
-interface PropTypes {
-    title: string;
-    html: string;
+interface PageProps {
+    children: React.ReactElement;
 }
 
-const Page = ({ title, html }: PropTypes) => {
-    useStyles(s);
-    return (
-        <div className={s.root}>
-            <div className={s.container}>
-                <h1>{title}</h1>
-                <div
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{ __html: html }}
-                />
-            </div>
-        </div>
-    );
+const Page: React.FC<PageProps> = ({ children }) => {
+    useStyles(normalizeCss, s);
+
+    return children;
 };
 
 export default Page;
