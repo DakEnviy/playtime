@@ -1,18 +1,8 @@
-import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function dataIdFromObject(obj: any) {
-    switch (obj.__typename) {
-        case 'NewsItem':
-            return obj.link ? `NewsItem:${obj.link}` : defaultDataIdFromObject(obj);
-        default:
-            return defaultDataIdFromObject(obj);
-    }
-}
-
-export default function createCache() {
+const createCache = () => {
     // https://www.apollographql.com/docs/react/basics/caching.html#configuration
-    return new InMemoryCache({
-        dataIdFromObject,
-    });
-}
+    return new InMemoryCache();
+};
+
+export default createCache;

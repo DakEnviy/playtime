@@ -5,7 +5,8 @@ import { SchemaLink } from 'apollo-link-schema';
 
 import createCache from './createCache';
 
-export default function createApolloClient(schema: SchemaLink.Options, partialCacheDefaults: Object) {
+// TODO: write typings for partialCacheDefaults
+const createApolloClient = (schema: SchemaLink.Options, partialCacheDefaults: object = {}) => {
     const cache = createCache();
 
     cache.writeData({
@@ -29,4 +30,6 @@ export default function createApolloClient(schema: SchemaLink.Options, partialCa
         ssrMode: true,
         queryDeduplication: true,
     });
-}
+};
+
+export default createApolloClient;

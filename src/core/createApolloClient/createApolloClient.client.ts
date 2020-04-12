@@ -6,7 +6,7 @@ import apolloLogger from 'apollo-link-logger';
 
 import createCache from './createCache';
 
-export default function createApolloClient() {
+const createApolloClient = () => {
     // Restore cache defaults to make the same one in server.js
     const cache = createCache().restore(window.App.cache);
 
@@ -31,4 +31,6 @@ export default function createApolloClient() {
         queryDeduplication: true,
         connectToDevTools: true,
     });
-}
+};
+
+export default createApolloClient;

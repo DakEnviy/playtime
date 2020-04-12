@@ -19,12 +19,12 @@ import errorPageStyle from './routes/error/ErrorPage.css';
 import passport from './passport';
 import router from './router';
 import { database } from './data/database';
+import AppModule from './data/modules/app';
+import { ApolloContext } from './interfaces/apollo';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 // @ts-ignore
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
-import AppModule from './data/modules/app';
-import { ApolloContext } from './interfaces/apollo';
 
 process.on('unhandledRejection', (reason, p) => {
     console.error('Unhandled Rejection at:', p, 'reason:', reason);
@@ -143,18 +143,16 @@ app.get('*', async (req, res, next) => {
             styles.forEach(style => css.add(style._getCss()));
         };
 
-        const apolloClient = createApolloClient(
-            {
-                schema: AppModule.schema,
-                // This is a context consumed in GraphQL Resolvers
-                context: {
-                    req,
-                    res,
-                    user: req.user,
-                },
-            },
-            {},
-        );
+        const apolloContext: ApolloContext = {
+            req,
+            res,
+            user: req.user,
+        };
+
+        const apolloClient = createApolloClient({
+            schema: AppModule.schema,
+            context: apolloContext,
+        });
 
         // Global (context) variables that can be easily accessed from any React component
         // https://facebook.github.io/react/docs/context.html
@@ -195,7 +193,7 @@ app.get('*', async (req, res, next) => {
         const data: HtmlProps = {
             title: route.title!,
             description: route.description!,
-            children: await ReactDOM.renderToString(rootComponent),
+            children: ReactDOM.renderToString(rootComponent),
             styles: [{ id: 'css', cssText: [...css].join('') }],
             scripts: Array.from(scripts),
             app: {
