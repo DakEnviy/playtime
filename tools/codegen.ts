@@ -1,5 +1,6 @@
 import { join as pathJoin } from 'path';
 import { generate } from '@graphql-codegen/cli';
+import { print } from 'graphql';
 
 import { cleanDir } from './lib/fs';
 import runWebpack from './lib/runWebpack';
@@ -34,12 +35,18 @@ export default async function codegen() {
     // eslint-disable-next-line global-require, import/no-dynamic-require, import/no-unresolved
     const builtSchema = require('../build/schema').default;
 
-    const genTargetDir = pathJoin(process.cwd(), 'src/__generated__/dataBinders.tsx');
+    const genTargetDir = pathJoin(process.cwd(), 'src/__generated__/graphql.tsx');
 
     await generate(
         {
-            schema: builtSchema.typeDefs,
+            schema: print(builtSchema),
             documents: './src/**/*.{graphql,ts,tsx}',
+            config: {
+                scalars: {
+                    URL: 'string',
+                    DateTime: 'Date',
+                },
+            },
             generates: {
                 [genTargetDir]: {
                     plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],

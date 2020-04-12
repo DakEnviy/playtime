@@ -1,0 +1,8 @@
+query HomeMe {
+    me {
+        __typename
+        id
+        username
+        avatar
+    }
+}
