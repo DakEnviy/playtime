@@ -3,9 +3,9 @@
 module.exports = {
     parser: '@typescript-eslint/parser',
 
-    extends: ['airbnb', 'plugin:css-modules/recommended', 'prettier', 'prettier/react'],
+    extends: ['airbnb', 'plugin:react-hooks/recommended', 'plugin:css-modules/recommended', 'prettier', 'prettier/react'],
 
-    plugins: ['@typescript-eslint/eslint-plugin', 'css-modules', 'prettier', 'jest'],
+    plugins: ['@typescript-eslint/eslint-plugin', 'react-hooks', 'css-modules', 'prettier', 'jest'],
 
     parserOptions: {
         sourceType: 'module',
