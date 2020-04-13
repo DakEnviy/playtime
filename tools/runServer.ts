@@ -9,6 +9,7 @@ const RUNNING_REGEXP = /The server is running at http:\/\/(.*?)\//;
 let server: ChildProcess;
 let pending = true;
 const [, serverConfig] = webpackConfig;
+// @ts-ignore
 const serverPath = path.join(serverConfig.output.path, serverConfig.output.filename.replace('[name]', 'server'));
 
 // Launch or restart the Node.js server

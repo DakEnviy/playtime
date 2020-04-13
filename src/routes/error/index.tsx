@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { RouteResult } from '../../router';
 import ErrorPage from './ErrorPage';
 
-function action() {
+const action = (): RouteResult => {
     return {
         title: 'Demo Error',
         component: <ErrorPage />,
     };
-}
+};
 
 export default action;

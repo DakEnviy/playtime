@@ -1,4 +1,5 @@
 @import '../../assets/styles/vars';
+@import '../../assets/styles/fonts';
 
 /*
  * normalize.css is imported in JS file.
@@ -11,8 +12,8 @@
  * ========================================================================== */
 
 html {
-  font-family: sans-serif; // TODO: base font family
-  font-size: 14px; // TODO: base font size
+  font-family: Rubik, sans-serif; /* TODO: base font family */
+  font-size: 14px; /* TODO: base font size */
   font-weight: 400;
   line-height: 1.375;
   color: $color-bg;
@@ -23,7 +24,7 @@ body {
 }
 
 a {
-  color: #0074c2; // TODO: change it later
+  color: #0074c2; /* TODO: change it later */
 }
 
 /*

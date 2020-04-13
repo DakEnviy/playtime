@@ -1,13 +1,14 @@
 import React from 'react';
 
+import { RouteResult } from '../../router';
 import Home from './Home';
 
-async function action() {
+const action = (): RouteResult => {
     return {
         title: 'Home page',
         chunks: ['home'],
-        component: <Home />,
+        pageContent: <Home />,
     };
-}
+};
 
 export default action;

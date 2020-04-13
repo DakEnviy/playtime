@@ -1,11 +1,12 @@
 import React from 'react';
 
+import { RouteResult } from '../../router';
 import Layout from '../../components/Layout';
 import NotFound from './NotFound';
 
 const title = 'Page Not Found';
 
-function action() {
+const action = (): RouteResult => {
     return {
         chunks: ['not-found'],
         title,
@@ -16,6 +17,6 @@ function action() {
         ),
         status: 404,
     };
-}
+};
 
 export default action;

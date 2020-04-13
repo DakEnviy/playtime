@@ -9,6 +9,7 @@ export interface RouteResult {
     title?: string;
     description?: string;
     component?: ReactNode;
+    pageContent?: ReactNode;
 
     params?: QueryParams;
     redirect?: string;
