@@ -15,6 +15,8 @@ module.exports = {
     ],
 
     rules: {
+        'indentation': 4,
+
         'property-no-unknown': [
             true,
             {

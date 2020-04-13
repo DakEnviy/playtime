@@ -1,0 +1,26 @@
+@import '../../assets/styles/vars';
+
+.Text {
+    &_font_OpenSans { font-family: OpenSans, sans-serif; }
+    &_font_Rubik { font-family: Rubik, sans-serif; }
+
+    &_size_xs { font-size: $font-size-xs; }
+    &_size_s { font-size: $font-size-s; }
+    &_size_m { font-size: $font-size-m; }
+    &_size_l { font-size: $font-size-l; }
+    &_size_xl { font-size: $font-size-xl; }
+    &_size_xxl { font-size: $font-size-xxl; }
+
+    &_line_xs { font-size: $line-height-xs; }
+    &_line_s { font-size: $line-height-s; }
+    &_line_m { font-size: $line-height-m; }
+    &_line_l { font-size: $line-height-l; }
+    &_line_xl { font-size: $line-height-xl; }
+    &_line_xxl { font-size: $line-height-xxl; }
+
+    &_weight_regular { font-weight: 400; }
+    &_weight_semiBold { font-weight: 600; }
+    &_weight_bold { font-weight: 700; }
+
+    &_italic { font-style: italic; }
+}

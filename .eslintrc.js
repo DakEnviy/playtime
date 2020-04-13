@@ -129,6 +129,9 @@ module.exports = {
 
         '@typescript-eslint/no-explicit-any': 'error',
 
+        // https://openbase.io/js/eslint-plugin-css-modules
+        'css-modules/no-unused-class': 'off',
+
         // Type variables by Codegen can not be camelcase.
         camelcase: 'off',
     },

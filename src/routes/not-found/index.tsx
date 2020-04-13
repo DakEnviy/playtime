@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { RouteResult } from '../../router';
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout/Layout';
 import NotFound from './NotFound';
 
 const title = 'Page Not Found';
