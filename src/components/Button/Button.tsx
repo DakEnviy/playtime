@@ -14,6 +14,8 @@ export interface ButtonProps {
     shape?: ButtonShape;
     color?: ButtonColor;
     size?: ButtonSize;
+
+    className?: string;
     children: React.ReactText;
 }
 
@@ -31,11 +33,11 @@ export interface ButtonProps {
 
 const cnButton = cn(s, 'Button');
 
-const Button: React.FC<ButtonProps> = ({ shape = 'right', color = 'blue', size = 's', children }) => {
+const Button: React.FC<ButtonProps> = ({ shape = 'right', color = 'blue', size = 's', className, children }) => {
     useStyles(s);
 
     return (
-        <button className={cnButton({ shape, color, size })} type="button">
+        <button className={cnButton({ shape, color, size }, [className])} type="button">
             {children}
         </button>
     );
