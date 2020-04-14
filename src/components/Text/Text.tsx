@@ -7,13 +7,15 @@ import s from './Text.scss';
 type TextFont = 'OpenSans' | 'Rubik';
 type TextSize = 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
 type TextLine = 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-type TextStyle = 'regular' | 'semiBold' | 'bold';
+type TextWeight = 'regular' | 'semiBold' | 'bold';
+type TextColor = 'gray' | 'white' | 'blue' | 'green' | 'gold' | 'red' | 'pink' | 'aqua';
 
 export interface TextProps {
     font?: TextFont;
     size?: TextSize;
     line?: TextLine;
-    weight?: TextStyle;
+    weight?: TextWeight;
+    color?: TextColor;
     italic?: boolean;
     semantic?: boolean;
 
@@ -26,8 +28,9 @@ const cnText = cn(s, 'Text');
 const Text: React.FC<TextProps> = ({
     font = 'OpenSans',
     size = 's',
-    line = 's',
+    line: originalLine,
     weight = 'bold',
+    color = 'gray',
     italic,
     semantic,
     className: mixClassName,
@@ -35,7 +38,10 @@ const Text: React.FC<TextProps> = ({
 }) => {
     useStyles(s);
 
-    const className = cnText({ font, size, line, weight, italic }, [mixClassName]);
+    const line: TextLine = originalLine ?? size;
+    const className = cnText({ font, size, line, weight, color, italic }, [mixClassName]);
+
+    let Tag: 'span' | 'strong' = 'span';
     let elem: React.ReactNode = children;
 
     if (semantic) {
@@ -44,11 +50,11 @@ const Text: React.FC<TextProps> = ({
         }
 
         if (weight === 'semiBold' || weight === 'bold') {
-            return <strong className={className}>{elem}</strong>;
+            Tag = 'strong';
         }
     }
 
-    return <span className={className}>{elem}</span>;
+    return <Tag className={className}>{elem}</Tag>;
 };
 
 export default Text;
