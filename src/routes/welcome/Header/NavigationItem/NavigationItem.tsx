@@ -10,17 +10,17 @@ import Icon, { IconProps } from '../../../../components/Icon/Icon';
 interface NavigationItemProps {
     to: LinkProps['to'];
     text: TextProps['children'];
-    iconType: IconProps['type'];
+    icon: IconProps['type'];
 }
 
 const cnNavigationItem = cn(s, 'NavigationItem');
 
-const NavigationItem: React.FC<NavigationItemProps> = ({ to, text, iconType }) => {
+const NavigationItem: React.FC<NavigationItemProps> = ({ to, text, icon }) => {
     useStyles(s);
 
     return (
         <Link className={cnNavigationItem()} to={to}>
-            <Icon type={iconType} />
+            <Icon type={icon} />
             <Text className={cnNavigationItem('Text')}>{text}</Text>
         </Link>
     );

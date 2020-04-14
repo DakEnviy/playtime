@@ -17,9 +17,9 @@ const WelcomeHeader = () => {
         <header className={cnWelcomeHeader()}>
             <div className={cnWelcomeHeader('Container')}>
                 <nav className={cnWelcomeHeader('Navigation')}>
-                    <NavigationItem to="/" text="Игры" iconType="gamepad" />
-                    <NavigationItem to="/" text="Бонусы" iconType="ingots" />
-                    <NavigationItem to="/" text="Прямой эфир" iconType="play" />
+                    <NavigationItem to="/" text="Игры" icon="gamepad" />
+                    <NavigationItem to="/" text="Бонусы" icon="ingots" />
+                    <NavigationItem to="/" text="Прямой эфир" icon="play" />
                 </nav>
                 <Link className={cnWelcomeHeader('Logo')} to="/">
                     <img src={logoImg} alt="Рулетка" />
