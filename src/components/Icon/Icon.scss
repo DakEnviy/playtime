@@ -1,0 +1,31 @@
+@import '../../assets/styles/mixins';
+
+$icon_types: gamepad ingots play user lightning rub cardsCut ingotsCut playRedCut guard diamondWhite;
+
+.Icon {
+    display: inline-block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    @each $type in $icon_types {
+        &_type_#{$type} {
+            background-image: url('./types/#{$type}.svg');
+        }
+    }
+
+    &_size_m {
+        width: 22px;
+        height: 22px;
+    }
+
+    &_size_s {
+        width: 20px;
+        height: 20px;
+    }
+
+    &_size_xs {
+        width: 14px;
+        height: 14px;
+    }
+}
