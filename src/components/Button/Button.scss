@@ -21,7 +21,7 @@
         height: 100%;
         top: 0;
         left: 0;
-        z-index: -1;
+        z-index: 0;
     }
 
     &_shape_right::before {
@@ -101,5 +101,10 @@
 
         &.Button_shape_right::before,
         &.Button_shape_left::before { width: 160px; }
+    }
+
+    &-Text {
+        position: relative;
+        z-index: 1;
     }
 }

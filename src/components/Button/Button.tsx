@@ -38,7 +38,7 @@ const Button: React.FC<ButtonProps> = ({ shape = 'right', color = 'blue', size =
 
     return (
         <button className={cnButton({ shape, color, size }, [className])} type="button">
-            {children}
+            <span className={cnButton('Text')}>{children}</span>
         </button>
     );
 };
