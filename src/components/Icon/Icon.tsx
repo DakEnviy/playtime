@@ -19,7 +19,7 @@ type IconType =
     | 'guard'
     | 'diamondWhite';
 
-interface IconProps {
+export interface IconProps {
     size?: IconSize;
     type: IconType;
 }

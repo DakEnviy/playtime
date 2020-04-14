@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { RouteResult } from '../../router';
-import Home from './Home';
+import Welcome from './Welcome';
 
 const action = (): RouteResult => {
     return {
-        title: 'Home page',
-        chunks: ['home'],
-        pageContent: <Home />,
+        title: 'Welcome page',
+        chunks: ['welcome'],
+        pageContent: <Welcome />,
     };
 };
 

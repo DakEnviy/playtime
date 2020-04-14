@@ -38,7 +38,7 @@ describe('yarn start', () => {
     it(
         'does Hot Module Reload',
         async () => {
-            const sourcePath = 'src/routes/home/Home.tsx';
+            const sourcePath = 'src/routes/welcome/Welcome.tsx';
             const sourceAbsPath = path.join(cwd, sourcePath);
             const expect = 'HMR!!!';
             const defaultH1 = '<h1>React.js News</h1>';

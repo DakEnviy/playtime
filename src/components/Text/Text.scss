@@ -11,12 +11,12 @@
     &_size_xl { font-size: $font-size-xl; }
     &_size_xxl { font-size: $font-size-xxl; }
 
-    &_line_xs { font-size: $line-height-xs; }
-    &_line_s { font-size: $line-height-s; }
-    &_line_m { font-size: $line-height-m; }
-    &_line_l { font-size: $line-height-l; }
-    &_line_xl { font-size: $line-height-xl; }
-    &_line_xxl { font-size: $line-height-xxl; }
+    &_line_xs { line-height: $line-height-xs; }
+    &_line_s { line-height: $line-height-s; }
+    &_line_m { line-height: $line-height-m; }
+    &_line_l { line-height: $line-height-l; }
+    &_line_xl { line-height: $line-height-xl; }
+    &_line_xxl { line-height: $line-height-xxl; }
 
     &_weight_regular { font-weight: 400; }
     &_weight_semiBold { font-weight: 600; }

@@ -1,3 +1,4 @@
+
 /* TYPOGRAPHY
    =============================================== */
 
@@ -8,16 +9,30 @@ $font-size-l: 18px;
 $font-size-xl: 24px;
 $font-size-xxl: 36px;
 
+$line-height-xs: 14px;
+$line-height-s: 16px;
+$line-height-m: 20px;
+$line-height-l: 24px;
+$line-height-xl: 28px;
+$line-height-xxl: 50px;
+
+$base-font-family: OpenSans, sans-serif;
+
 /* COLORS
    =============================================== */
 
-$color-bg: #5c6199;
-$color-text: #fff;
-$color-accent: #fdf04e;
-$color-green: #a7ed7b;
-$color-blue: #14c5ef;
-$color-red: #ff6767;
-$color-primary: #8096d0;
+$color-bg: #090d15;
+$color-gray: #5e6b86;
+$color-white: #fff;
+$color-blue: #4282d6;
+$color-green: #7dc856;
+$color-gold: #feba1d;
+$color-red: #fc3838;
+$color-pink: #fa42e4;
+$color-aqua: #55edff;
+
+$grad-blue: linear-gradient(90deg, #2f83fd 0%, #5b8efb 100%);
+$grad-green: linear-gradient(90deg, #83c271 0%, #89d44b 100%);
 
 /* OTHER
    =============================================== */

@@ -12,11 +12,12 @@
  * ========================================================================== */
 
 html {
-    font-family: Rubik, sans-serif; /* TODO: base font family */
-    font-size: 14px; /* TODO: base font size */
+    font-family: $base-font-family;
+    font-size: $font-size-s;
     font-weight: 400;
     line-height: 1.375;
-    color: $color-bg;
+    background-color: $color-bg;
+    color: $color-gray;
 }
 
 body {
@@ -24,7 +25,7 @@ body {
 }
 
 a {
-    color: #0074c2; /* TODO: change it later */
+    color: $color-blue;
 }
 
 /*

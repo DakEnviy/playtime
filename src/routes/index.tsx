@@ -13,7 +13,7 @@ const routes: Route<AppRouterContext, RouteResult> = {
     children: [
         {
             path: '',
-            load: () => import(/* webpackChunkName: 'home' */ './home'),
+            load: () => import(/* webpackChunkName: 'welcome' */ './welcome'),
         },
 
         // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
