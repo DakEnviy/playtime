@@ -22,14 +22,16 @@ type IconType =
 export interface IconProps {
     size?: IconSize;
     type: IconType;
+
+    className?: string;
 }
 
 const cnIcon = cn(s, 'Icon');
 
-const Icon: React.FC<IconProps> = ({ size = 's', type }) => {
+const Icon: React.FC<IconProps> = ({ size = 's', type, className }) => {
     useStyles(s);
 
-    return <i className={cnIcon({ type, size })} />;
+    return <i className={cnIcon({ type, size }, [className])} />;
 };
 
 export default Icon;
