@@ -1,13 +1,23 @@
 import React from 'react';
 
 import { RouteResult } from '../../router';
-import Welcome from './Welcome';
+import WelcomeHeader from './Header/WelcomeHeader';
+import WelcomeBanner from './Banner/WelcomeBanner';
+import WelcomeGames from './Games/WelcomeGames';
+import WelcomeCards from './Cards/WelcomeCards';
 
 const action = (): RouteResult => {
     return {
         title: 'Welcome page',
         chunks: ['welcome'],
-        pageContent: <Welcome />,
+        pageContent: (
+            <>
+                <WelcomeHeader />
+                <WelcomeBanner />
+                <WelcomeGames />
+                <WelcomeCards />
+            </>
+        ),
     };
 };
 

@@ -7,11 +7,13 @@ import { cn } from '../../utils/bem-css-module';
 type ButtonShape = 'right' | 'left' | 'alphaRight';
 type ButtonColor = 'blue' | 'green' | 'gray' | 'bordered';
 type ButtonSize = 'xs' | 's' | 'm';
+type ButtonWeight = 'normal' | 'semiBold' | 'bold';
 
 export interface ButtonProps {
     shape?: ButtonShape;
     color?: ButtonColor;
     size?: ButtonSize;
+    weight?: ButtonWeight;
 
     className?: string;
     children: React.ReactText;
@@ -31,11 +33,18 @@ export interface ButtonProps {
 
 const cnButton = cn(s, 'Button');
 
-const Button: React.FC<ButtonProps> = ({ shape = 'right', color = 'blue', size = 's', className, children }) => {
+const Button: React.FC<ButtonProps> = ({
+    shape = 'right',
+    color = 'blue',
+    size = 's',
+    weight = 'bold',
+    className,
+    children,
+}) => {
     useStyles(s);
 
     return (
-        <button className={cnButton({ shape, color, size }, [className])} type="button">
+        <button className={cnButton({ shape, color, size, weight }, [className])} type="button">
             <span className={cnButton('Text')}>{children}</span>
         </button>
     );

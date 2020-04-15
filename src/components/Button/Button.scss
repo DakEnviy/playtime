@@ -151,4 +151,8 @@
         position: relative;
         z-index: 2;
     }
+
+    &_weight_normal .Button-Text { font-weight: 400; }
+    &_weight_semiBold .Button-Text { font-weight: 600; }
+    &_weight_bold .Button-Text { font-weight: 700; }
 }

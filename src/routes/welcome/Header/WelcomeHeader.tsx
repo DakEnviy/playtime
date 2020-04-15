@@ -25,8 +25,10 @@ const WelcomeHeader = () => {
                     <img src={logoImg} alt="Рулетка" />
                 </Link>
                 <div className={cnWelcomeHeader('Buttons')}>
-                    <Button color="bordered">Войти</Button>
-                    <Button>Регистрация</Button>
+                    <Button color="bordered" weight="normal">
+                        Войти
+                    </Button>
+                    <Button weight="normal">Регистрация</Button>
                 </div>
             </div>
         </header>

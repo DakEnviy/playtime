@@ -3,14 +3,14 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './WelcomeGamesItem.scss';
 import { cn } from '../../../../utils/bem-css-module';
-import Text from '../../../../components/Text/Text';
+import Text, { TextProps } from '../../../../components/Text/Text';
 import TextBlock from '../../../../components/TextBlock/TextBlock';
 
 type WelcomeGamesItemType = 'dice' | 'fast' | 'knb' | 'battle';
 
 export interface WelcomeGamesItemProps {
-    title: string;
-    description: string;
+    title: TextProps['children'];
+    description: TextProps['children'];
     type: WelcomeGamesItemType;
 
     className?: string;

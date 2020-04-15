@@ -1,0 +1,32 @@
+@import '../../../assets/styles/vars';
+
+.WelcomeCards {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 45px;
+
+    &-Container { width: 1090px; }
+
+    &-Head {
+        position: relative;
+        margin-bottom: 50px;
+        text-align: center;
+
+        .Title > .Text > span { color: $color-gold; }
+    }
+
+    &-Icon {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        top: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &-Items {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+}

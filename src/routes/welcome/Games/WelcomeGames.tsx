@@ -8,11 +8,9 @@ import Icon from '../../../components/Icon/Icon';
 import Scroller from '../../../components/Scroller/Scroller';
 import WelcomeGamesItem from './GamesItem/WelcomeGamesItem';
 
-export interface WelcomeGamesProps {}
-
 const cnWelcomeGames = cn(s, 'WelcomeGames');
 
-const WelcomeGames: React.FC<WelcomeGamesProps> = () => {
+const WelcomeGames: React.FC = () => {
     useStyles(s);
 
     return (
