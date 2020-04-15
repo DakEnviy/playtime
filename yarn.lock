@@ -1919,6 +1919,11 @@
   dependencies:
     "@types/express" "*"
 
+"@types/cssesc@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/cssesc/-/cssesc-3.0.0.tgz#91350c4d72375d9b9c055fb2ef5895287ccb5cbc"
+  integrity sha512-4mBnOrTpVKn+tYzlnMO7cwDkDa6wlQ2bBXW+79/6ahMd36GF216kxWYxgz+S4d5Ev1ByFbnQbPGxV4P5BSL8MA==
+
 "@types/cssnano@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/cssnano/-/cssnano-4.0.0.tgz#f1bb29d6d0813861a3d87e02946b2988d0110d4e"

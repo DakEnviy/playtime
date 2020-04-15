@@ -8,6 +8,7 @@ import cssnano from 'cssnano';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import overrideRules from './lib/overrideRules';
+import { getLocalIdent } from './lib/loaderUtils';
 import pkg from '../package.json';
 import postcssConfig from './postcss.config';
 
@@ -32,6 +33,7 @@ const staticAssetName = isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext
 // client-side (client.js) and server-side (server.js) bundles
 // -----------------------------------------------------------------------------
 
+// noinspection JSUnusedGlobalSymbols
 const config: webpack.Configuration = {
     context: ROOT_DIR,
 
@@ -149,7 +151,8 @@ const config: webpack.Configuration = {
                             sourceMap: isDebug,
                             // CSS Modules https://github.com/css-modules/css-modules
                             modules: {
-                                localIdentName: isDebug ? '[local]' : '[hash:base64:5]',
+                                localIdentName: isDebug ? '[local]' : '[hash:base64:7]',
+                                getLocalIdent,
                             },
                         },
                     },
