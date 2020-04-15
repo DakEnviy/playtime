@@ -1,0 +1,23 @@
+
+.Scroller {
+    width: 100%;
+    overflow: hidden;
+
+    &-Viewport {
+        width: 100%;
+        overflow: auto;
+        -ms-overflow-style: none;
+        //noinspection CssUnknownProperty
+        scrollbar-width: none;
+        user-select: none;
+
+        &::-webkit-scrollbar { display: none; }
+    }
+
+    &-Items {
+        display: inline-block;
+        white-space: nowrap;
+
+        > * { display: inline-block; }
+    }
+}
