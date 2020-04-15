@@ -20,7 +20,7 @@ export interface TextProps {
     semantic?: boolean;
 
     className?: string;
-    children: React.ReactText;
+    children: React.ReactNode;
 }
 
 const cnText = cn(s, 'Text');

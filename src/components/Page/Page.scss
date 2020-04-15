@@ -30,13 +30,11 @@ html {
     color: $color-gray;
 }
 
-body {
-    margin: 0;
-}
+* { box-sizing: border-box; }
 
-a {
-    color: $color-blue;
-}
+body { margin: 0; }
+
+a { color: $color-blue; }
 
 /*
  * Remove text-shadow in selection highlight:
