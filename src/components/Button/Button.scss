@@ -10,6 +10,7 @@
     font-size: 100%;
     font-weight: 600;
     text-transform: uppercase;
+    outline: none;
     cursor: pointer;
     overflow: hidden;
 
@@ -21,19 +22,17 @@
         height: 100%;
         top: 0;
         left: 0;
-        z-index: 0;
+        z-index: 1;
     }
 
-    &_shape_right::before {
-        transform: translate(-50%, -50%) skewX(-8deg);
-    }
+    &_shape_right::before,
+    &_shape_alphaRight::before,
+    &_shape_alphaRight::after { transform: translate(-50%, -50%) skewX(-8deg); }
+    &_shape_left::before { transform: translate(-50%, -50%) skewX(8deg); }
 
-    &_shape_left::before {
-        transform: translate(-50%, -50%) skewX(-8deg);
-    }
-
+    &_shape_right,
     &_shape_left,
-    &_shape_right {
+    &_shape_alphaRight {
         &::before {
             top: 50%;
             left: 50%;
@@ -45,10 +44,37 @@
         &.Button_size_m::before { border-radius: 5px; }
     }
 
+    &_shape_alphaRight {
+        &::before {
+            margin-top: -1px;
+            margin-left: -1px;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            top: 50%;
+            left: 50%;
+            margin-top: 1px;
+            margin-left: 1px;
+            z-index: 0;
+        }
+
+        &.Button_size_xs::after { border-radius: 3px; }
+
+        &.Button_size_s::after,
+        &.Button_size_m::after { border-radius: 5px; }
+    }
+
     &_color_blue {
         color: $color-white;
 
         &::before { background: $grad-blue; }
+
+        &.Button_shape_alphaRight::after { background-color: #446aec; }
     }
 
     &_color_green {
@@ -81,6 +107,12 @@
 
         &.Button_shape_right::before,
         &.Button_shape_left::before { width: 55px; }
+
+        &.Button_shape_alphaRight::before,
+        &.Button_shape_alphaRight::after {
+            width: 50px;
+            height: 33px;
+        }
     }
 
     &_size_s {
@@ -91,6 +123,12 @@
 
         &.Button_shape_right::before,
         &.Button_shape_left::before { width: 120px; }
+
+        &.Button_shape_alphaRight::before,
+        &.Button_shape_alphaRight::after {
+            width: 117px;
+            height: 31px;
+        }
     }
 
     &_size_m {
@@ -101,10 +139,16 @@
 
         &.Button_shape_right::before,
         &.Button_shape_left::before { width: 160px; }
+
+        &.Button_shape_alphaRight::before,
+        &.Button_shape_alphaRight::after {
+            width: 157px;
+            height: 38px;
+        }
     }
 
     &-Text {
         position: relative;
-        z-index: 1;
+        z-index: 2;
     }
 }

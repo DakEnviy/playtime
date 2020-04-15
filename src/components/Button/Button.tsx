@@ -4,10 +4,8 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 import s from './Button.scss';
 import { cn } from '../../utils/bem-css-module';
 
-type ButtonShape = 'right' | 'left';
-
+type ButtonShape = 'right' | 'left' | 'alphaRight';
 type ButtonColor = 'blue' | 'green' | 'gray' | 'bordered';
-
 type ButtonSize = 'xs' | 's' | 'm';
 
 export interface ButtonProps {
