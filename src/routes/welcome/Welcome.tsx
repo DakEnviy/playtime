@@ -1,21 +1,16 @@
 import React from 'react';
-import useStyles from 'isomorphic-style-loader/useStyles';
 
-import { cn } from '../../utils/bem-css-module';
 import WelcomeHeader from './Header/WelcomeHeader';
-import s from './Welcome.scss';
+import WelcomeBanner from './Banner/WelcomeBanner';
+import WelcomeGames from './Games/WelcomeGames';
 
-interface WelcomeProps {}
-
-const cnWelcome = cn(s, 'Welcome');
-
-const Welcome: React.FC<WelcomeProps> = () => {
-    useStyles(s);
-
+const Welcome: React.FC = () => {
     return (
-        <div className={cnWelcome()}>
+        <>
             <WelcomeHeader />
-        </div>
+            <WelcomeBanner />
+            <WelcomeGames />
+        </>
     );
 };
 
