@@ -18,7 +18,7 @@ const Scroller: React.FC<ScrollerProps> = ({ children, className }) => {
     const [isDragging, setDragging] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
-    const viewport = React.createRef<HTMLDivElement>();
+    const viewport = React.useRef<HTMLDivElement | null>(null);
 
     const onDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
         setDragging(true);
