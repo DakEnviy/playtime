@@ -1,0 +1,46 @@
+@import '../../assets/styles/vars';
+
+.Table {
+    border-radius: 5px;
+    padding: 20px 10px 15px;
+    background-color: lighten($color-bg, 5%);
+
+    &-Head {
+        padding: 0 5px;
+        margin-bottom: 15px;
+        white-space: nowrap;
+    }
+
+    &-Anchor {
+        width: 100%;
+        height: 0;
+    }
+
+    &-Body { display: block; }
+
+    &-Row {
+        border-radius: 5px;
+        padding: 0 5px;
+        white-space: nowrap;
+
+        &:nth-child(odd) { background-color: lighten($color-bg, 10%); }
+        &:nth-child(even) { background-color: lighten($color-bg, 8%); }
+
+        &::after {
+            content: '';
+            display: inline-block;
+            height: 65px;
+            width: 0;
+            vertical-align: middle;
+        }
+
+        & + & { margin-top: 10px; }
+    }
+
+    &-HeadCell,
+    &-RowCell {
+        display: inline-block;
+        padding: 0 5px;
+        vertical-align: middle;
+    }
+}
