@@ -17,6 +17,7 @@ export interface TextProps {
     weight?: TextWeight;
     color?: TextColor;
     italic?: boolean;
+    upper?: boolean;
     semantic?: boolean;
 
     className?: string;
@@ -32,6 +33,7 @@ const Text: React.FC<TextProps> = ({
     weight = 'bold',
     color = 'gray',
     italic,
+    upper,
     semantic,
     className: mixClassName,
     children,
@@ -39,7 +41,7 @@ const Text: React.FC<TextProps> = ({
     useStyles(s);
 
     const line: TextLine = originalLine ?? size;
-    const className = cnText({ font, size, line, weight, color, italic }, [mixClassName]);
+    const className = cnText({ font, size, line, weight, color, italic, upper }, [mixClassName]);
 
     let Tag: 'span' | 'strong' = 'span';
     let elem: React.ReactNode = children;
