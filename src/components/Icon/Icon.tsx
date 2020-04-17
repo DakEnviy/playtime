@@ -17,7 +17,10 @@ type IconType =
     | 'ingotsCut'
     | 'playRedCut'
     | 'guard'
-    | 'diamondWhite';
+    | 'diamondWhite'
+    | 'sword'
+    | 'dice'
+    | 'scissors';
 
 export interface IconProps {
     size?: IconSize;
