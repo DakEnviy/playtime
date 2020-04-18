@@ -13,16 +13,16 @@
 
     &-Navigation { flex: 1; }
 
-    &-Logo {
+    &-LogoContainer {
         flex: 1;
         display: flex;
         justify-content: center;
+    }
 
-        > img {
-            width: 195px;
-            height: 40px;
-            object-fit: contain;
-        }
+    &-Logo {
+        width: 195px;
+        height: 40px;
+        object-fit: contain;
     }
 
     &-Buttons {

@@ -21,9 +21,11 @@ const WelcomeHeader = () => {
                     <NavigationItem to="/" text="Бонусы" icon="ingots" />
                     <NavigationItem to="/" text="Прямой эфир" icon="play" />
                 </nav>
-                <Link className={cnWelcomeHeader('Logo')} to="/">
-                    <img src={logoImg} alt="Рулетка" />
-                </Link>
+                <div className={cnWelcomeHeader('LogoContainer')}>
+                    <Link to="/">
+                        <img className={cnWelcomeHeader('Logo')} src={logoImg} alt="Рулетка" />
+                    </Link>
+                </div>
                 <div className={cnWelcomeHeader('Buttons')}>
                     <Button color="bordered" weight="normal">
                         Войти
