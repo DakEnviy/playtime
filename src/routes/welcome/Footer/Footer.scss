@@ -1,0 +1,50 @@
+@import '../../../assets/styles/vars';
+
+.Footer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+
+    &-Container {
+        max-width: 1030px;
+        width: 100%;
+    }
+
+    &-Main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid lighten($color-bg, 8%);
+        padding: 20px 0;
+        margin-bottom: 15px;
+    }
+
+    &-Navigation {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        > li {
+            display: inline-block;
+
+            & + li { margin-left: 22px; }
+        }
+    }
+
+    &-SocialButton {
+        width: 25px;
+        height: 20px;
+        font-size: $font-size-xs;
+        line-height: $line-height-xs;
+
+        &.Button_shape_right::before { width: 20px; }
+
+        & + & { margin-left: 5px; }
+    }
+
+    &-Copyright {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

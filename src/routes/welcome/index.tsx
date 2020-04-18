@@ -6,6 +6,7 @@ import WelcomeBanner from './Banner/WelcomeBanner';
 import WelcomeGames from './Games/WelcomeGames';
 import WelcomeCards from './Cards/WelcomeCards';
 import WelcomeLiveFeed from './WelcomeLiveFeed/WelcomeLiveFeed';
+import Footer from './Footer/Footer';
 
 const action = (): RouteResult => {
     return {
@@ -18,6 +19,7 @@ const action = (): RouteResult => {
                 <WelcomeGames />
                 <WelcomeCards />
                 <WelcomeLiveFeed />
+                <Footer />
             </>
         ),
     };
