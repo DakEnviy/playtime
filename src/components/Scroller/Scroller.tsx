@@ -5,9 +5,8 @@ import s from './Scroller.scss';
 import { cn } from '../../utils/bem-css-module';
 
 export interface ScrollerProps {
-    children: React.ReactNode;
-
     className?: string;
+    children: React.ReactNode;
 }
 
 const cnScroller = cn(s, 'Scroller');

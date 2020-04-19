@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
     useStyles(s);
 
     return (
-        <div className={cnFooter()}>
+        <footer className={cnFooter()}>
             <div className={cnFooter('Container')}>
                 <div className={cnFooter('Main')}>
                     <ul className={cnFooter('Navigation')}>
@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
                     <Text size="xs">Ruletka © 2020</Text>
                 </div>
             </div>
-        </div>
+        </footer>
     );
 };
 

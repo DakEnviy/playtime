@@ -45,7 +45,7 @@
         }
     }
 
-    &-Title {
+    & &-Title {
         position: relative;
         text-transform: uppercase;
         z-index: 1;
@@ -61,5 +61,5 @@
         background-color: lighten($color-bg, 5%);
     }
 
-    &-Description { width: 70%; }
+    & &-Description { width: 70%; }
 }

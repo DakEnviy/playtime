@@ -4,17 +4,17 @@
     justify-content: flex-start;
     align-items: center;
 
-    &-Icon {
+    & &-Icon {
         width: 26px;
         height: 26px;
     }
 
     &-Main { margin-left: 15px; }
 
-    &-Value,
-    &-Label { display: block; }
+    & &-Value,
+    & &-Label { display: block; }
 
-    &-Label {
+    & &-Label {
         margin-top: 1px;
         text-transform: uppercase;
     }
