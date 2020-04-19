@@ -5,6 +5,16 @@
     padding: 20px 10px 15px;
     background-color: lighten($color-bg, 5%);
 
+    &-Content {
+        width: 100%;
+        overflow: auto;
+        -ms-overflow-style: none;
+        //noinspection CssUnknownProperty
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar { display: none; }
+    }
+
     &-Head {
         padding: 0 5px;
         margin-bottom: 15px;
@@ -19,6 +29,8 @@
     &-Body { display: block; }
 
     &-Row {
+        display: inline-block;
+        min-width: 100%;
         border-radius: 5px;
         padding: 0 5px;
         white-space: nowrap;
@@ -42,5 +54,6 @@
         display: inline-block;
         padding: 0 5px;
         vertical-align: middle;
+        white-space: normal;
     }
 }

@@ -19,7 +19,7 @@ const useColumns = <R extends HTMLElement, C extends Column[]>(
         let maxWidth = 0;
         let maxDelta = 0;
         let unlimitedColumnsCount = 0;
-        let unlimitedColumnsMaxWidth = 0;
+        let unlimitedColumnsMinWidth = 0;
 
         columns.forEach(column => {
             minWidth += column.minWidth;
@@ -30,12 +30,11 @@ const useColumns = <R extends HTMLElement, C extends Column[]>(
             } else {
                 maxWidth += column.minWidth;
                 ++unlimitedColumnsCount;
-                unlimitedColumnsMaxWidth += column.minWidth;
+                unlimitedColumnsMinWidth += column.minWidth;
             }
         });
 
         maxWidth += unlimitedColumnsCount * maxDelta;
-        unlimitedColumnsMaxWidth += unlimitedColumnsCount * maxDelta;
 
         if (width <= minWidth) return;
 
@@ -49,9 +48,7 @@ const useColumns = <R extends HTMLElement, C extends Column[]>(
 
                 return column.maxWidth
                     ? column.maxWidth
-                    : column.minWidth +
-                          maxDelta +
-                          ((column.minWidth + maxDelta) / unlimitedColumnsMaxWidth) * (width - minWidth);
+                    : column.minWidth + maxDelta + (column.minWidth / unlimitedColumnsMinWidth) * (width - maxWidth);
             }),
         );
     }, [width, columns]);

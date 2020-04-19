@@ -45,7 +45,8 @@ const LiveFeedTable: React.FC<LiveFeedTableProps> = ({ items }) => {
                         Игра
                     </Text>
                 }
-                minWidth={100}
+                minWidth={130}
+                maxWidth={200}
                 columnKey="game"
             >
                 {({ game }) => (
@@ -64,7 +65,7 @@ const LiveFeedTable: React.FC<LiveFeedTableProps> = ({ items }) => {
                         Победитель
                     </Text>
                 }
-                minWidth={150}
+                minWidth={200}
                 columnKey="winner"
             >
                 {({ winner }) => (
@@ -82,7 +83,8 @@ const LiveFeedTable: React.FC<LiveFeedTableProps> = ({ items }) => {
                         Шанс
                     </Text>
                 }
-                minWidth={80}
+                minWidth={100}
+                maxWidth={200}
                 columnKey="chance"
             >
                 {({ chance }) => <ChanceBadge chance={chance} />}
@@ -93,7 +95,8 @@ const LiveFeedTable: React.FC<LiveFeedTableProps> = ({ items }) => {
                         Выигрыш
                     </Text>
                 }
-                minWidth={100}
+                minWidth={110}
+                maxWidth={180}
                 columnKey="fund"
             >
                 {({ fund }) => (
@@ -112,6 +115,7 @@ const LiveFeedTable: React.FC<LiveFeedTableProps> = ({ items }) => {
                     </Text>
                 }
                 minWidth={120}
+                maxWidth={140}
                 columnKey="time"
             >
                 {({ time }) => (

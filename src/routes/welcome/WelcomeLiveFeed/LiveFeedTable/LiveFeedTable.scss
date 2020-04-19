@@ -9,15 +9,15 @@
     & .Table-Head,
     & .Table-Row { padding: 0 10px; }
 
-    &-GameIcon {
+    & &-GameIcon {
         width: 15px;
         height: 15px;
         margin-right: 13px;
     }
 
-    &-GameName { vertical-align: middle; }
+    & &-GameName { vertical-align: middle; }
 
-    &-FairIcon {
+    & &-FairIcon {
         width: 13px;
         height: 13px;
         margin-left: 11px;
@@ -32,14 +32,14 @@
         vertical-align: middle;
     }
 
-    &-WinnerName {
+    & &-WinnerName {
         margin-left: 13px;
         vertical-align: middle;
     }
 
-    &-FundAmount { vertical-align: middle; }
+    & &-FundAmount { vertical-align: middle; }
 
-    &-FundIcon {
+    & &-FundIcon {
         width: 14px;
         height: 14px;
         margin-left: 8px;

@@ -52,28 +52,34 @@ const Table = <
 
     return (
         <div className={cnTable(null, [className])}>
-            <div className={cnTable('Head')}>
-                <div className={cnTable('Anchor')} ref={anchor} />
-                {columns.map((column, index) => (
-                    <div className={cnTable('HeadCell')} style={{ width: columnWidths[index] }} key={column.columnKey}>
-                        {column.label}
-                    </div>
-                ))}
-            </div>
-            <div className={cnTable('Body')}>
-                {items.map((item, index) => (
-                    <div className={cnTable('Row', [...getRowClassName(item, index)])} key={getRowKey(item, index)}>
-                        {columns.map((column, columnIndex) => (
-                            <div
-                                className={cnTable('RowCell')}
-                                style={{ width: columnWidths[columnIndex] }}
-                                key={column.columnKey}
-                            >
-                                {column.children(item, index)}
-                            </div>
-                        ))}
-                    </div>
-                ))}
+            <div className={cnTable('Content')}>
+                <div className={cnTable('Head')}>
+                    <div className={cnTable('Anchor')} ref={anchor} />
+                    {columns.map((column, index) => (
+                        <div
+                            className={cnTable('HeadCell')}
+                            style={{ width: columnWidths[index] }}
+                            key={column.columnKey}
+                        >
+                            {column.label}
+                        </div>
+                    ))}
+                </div>
+                <div className={cnTable('Body')}>
+                    {items.map((item, index) => (
+                        <div className={cnTable('Row', [...getRowClassName(item, index)])} key={getRowKey(item, index)}>
+                            {columns.map((column, columnIndex) => (
+                                <div
+                                    className={cnTable('RowCell')}
+                                    style={{ width: columnWidths[columnIndex] }}
+                                    key={column.columnKey}
+                                >
+                                    {column.children(item, index)}
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
