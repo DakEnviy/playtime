@@ -187,6 +187,7 @@ app.get('*', async (req, res, next) => {
             }
         };
         addChunk('client');
+        addChunk('polyfills');
         if (route.chunk) addChunk(route.chunk);
         if (route.chunks) route.chunks.forEach(addChunk);
 

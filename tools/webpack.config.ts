@@ -293,6 +293,7 @@ const clientConfig: webpack.Configuration = {
 
     entry: {
         client: ['./src/client'],
+        polyfills: ['./src/polyfills'],
     },
 
     plugins: [
