@@ -30,8 +30,23 @@
     @return $string;
 }
 
+// Build gradients
+@function grad($colors) {
+    @return linear-gradient(90deg, nth($colors, 1) 0%, nth($colors, 2) 100%);
+}
+
+@function grad_mirror($colors) {
+    @return linear-gradient(90deg, nth($colors, 1) 0%, nth($colors, 2) 45%, lighten(nth($colors, 2), 10%) 50%, nth($colors, 2) 55%, nth($colors, 1) 100%);
+}
+
 /* MIXINS
    =============================================== */
+
+// Mirror gradient for transitions
+@mixin grad_mirror($colors) {
+    background: grad_mirror($colors);
+    background-size: 222.22% 100%;
+}
 
 // Media query
 @mixin mq($query) {
