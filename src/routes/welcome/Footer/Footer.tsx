@@ -18,27 +18,27 @@ const Footer: React.FC = () => {
                 <div className={cnFooter('Main')}>
                     <ul className={cnFooter('Navigation')}>
                         <li>
-                            <Link to="/">
+                            <Link className={cnFooter('NavigationItem')} to="/">
                                 <Text size="xs">О проекте</Text>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/">
+                            <Link className={cnFooter('NavigationItem')} to="/">
                                 <Text size="xs">Вопросы и ответы</Text>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/">
+                            <Link className={cnFooter('NavigationItem')} to="/">
                                 <Text size="xs">Правила</Text>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/">
+                            <Link className={cnFooter('NavigationItem')} to="/">
                                 <Text size="xs">Партнерская программа</Text>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/">
+                            <Link className={cnFooter('NavigationItem')} to="/">
                                 <Text size="xs">Контакты</Text>
                             </Link>
                         </li>

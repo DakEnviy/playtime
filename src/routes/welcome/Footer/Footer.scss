@@ -31,11 +31,20 @@
         }
     }
 
+    & &-NavigationItem {
+        .Text { transition: color 0.3s $nice-ease; }
+
+        &:hover .Text { color: $color-white; }
+    }
+
     & &-SocialButton {
         width: 25px;
         height: 20px;
         font-size: $font-size-xs;
         line-height: $line-height-xs;
+        transition: color 0.3s $nice-ease;
+
+        &:hover { color: $color-white; }
 
         &.Button_shape_right::before { width: 20px; }
 
