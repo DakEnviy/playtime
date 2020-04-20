@@ -52,5 +52,8 @@ module.exports = {
         // https://github.com/kristerkari/stylelint-scss/tree/master/src/rules/at-rule-no-unknown
         'at-rule-no-unknown': null,
         'scss/at-rule-no-unknown': true,
+
+        // https://stylelint.io/user-guide/rules/no-descending-specificity
+        'no-descending-specificity': null,
     },
 };
