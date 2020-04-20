@@ -11,16 +11,17 @@ interface NavigationItemProps {
     to: LinkProps['to'];
     text: TextProps['children'];
     icon: IconProps['type'];
+    iconHover: IconProps['hover'];
 }
 
 const cnNavigationItem = cn(s, 'NavigationItem');
 
-const NavigationItem: React.FC<NavigationItemProps> = ({ to, text, icon }) => {
+const NavigationItem: React.FC<NavigationItemProps> = ({ to, text, icon, iconHover }) => {
     useStyles(s);
 
     return (
         <Link className={cnNavigationItem()} to={to}>
-            <Icon type={icon} />
+            <Icon className={cnNavigationItem('Icon')} type={icon} hover={iconHover} />
             <Text className={cnNavigationItem('Text')}>{text}</Text>
         </Link>
     );
