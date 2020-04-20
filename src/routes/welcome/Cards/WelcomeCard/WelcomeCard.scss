@@ -1,4 +1,5 @@
 @import '../../../../assets/styles/vars';
+@import '../../../../assets/styles/mixins';
 
 .WelcomeCard {
     position: relative;
@@ -6,6 +7,8 @@
     height: 325px;
     padding-top: 25px;
     margin-top: 50px;
+
+    @include mq(max-width 1090px) { width: calc(50% - 25px); }
 
     &:nth-child(1),
     &:nth-child(2) { margin-top: 0; }

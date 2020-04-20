@@ -21,11 +21,9 @@ const WelcomeHeader = () => {
                     <NavigationItem to="/" text="Бонусы" icon="ingots" iconHover="ingotsWhite" />
                     <NavigationItem to="/" text="Прямой эфир" icon="play" iconHover="playWhite" />
                 </nav>
-                <div className={cnWelcomeHeader('LogoContainer')}>
-                    <Link to="/">
-                        <img className={cnWelcomeHeader('Logo')} src={logoImg} alt="Рулетка" />
-                    </Link>
-                </div>
+                <Link className={cnWelcomeHeader('Logo')} to="/">
+                    <img className={cnWelcomeHeader('Logo')} src={logoImg} alt="Рулетка" />
+                </Link>
                 <div className={cnWelcomeHeader('Buttons')}>
                     <Button color="bordered" weight="normal">
                         Войти

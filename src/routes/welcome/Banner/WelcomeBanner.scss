@@ -1,4 +1,5 @@
 @import '../../../assets/styles/vars';
+@import '../../../assets/styles/mixins';
 
 .WelcomeBanner {
     display: flex;
@@ -8,10 +9,14 @@
     color: $color-white;
     background-color: #0e252f;
 
+    @include mq(max-width 1320px) { margin-bottom: 85px; }
+
     &-Container {
         position: relative;
-        width: 1060px;
+        max-width: 1120px;
+        width: 100%;
         height: 100%;
+        padding: 0 30px;
     }
 
     &-Main {
@@ -64,7 +69,7 @@
         display: flex;
         bottom: 0;
         left: 0;
-        padding: 18px 35px 18px 10px;
+        padding: 18px 35px 18px 40px;
         background-color: $color-bg;
 
         &::before {
@@ -94,6 +99,13 @@
         transform: translateX(100vw);
         pointer-events: none;
         transition: opacity 1s $nice-ease 0.5s, transform 1s $nice-ease 0s;
+
+        @include mq(max-width 1320px) {
+            width: 500px;
+            height: 440px;
+            top: 95px;
+            right: -35px;
+        }
     }
 
     &_inView &-NotebookImage {
