@@ -1,4 +1,5 @@
 import React from 'react';
+import { Element as ScrollElement } from 'react-scroll';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './WelcomeLiveFeed.scss';
@@ -26,6 +27,7 @@ const WelcomeLiveFeed: React.FC = () => {
 
     return (
         <section className={cnWelcomeLiveFeed({ inView })} ref={liveFeed}>
+            <ScrollElement name="welcomeLiveFeed" />
             <div className={cnWelcomeLiveFeed('Head')}>
                 <Title type="h2">
                     <span>Прямо сейчас</span> играют

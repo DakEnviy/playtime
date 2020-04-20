@@ -1,4 +1,5 @@
 import React from 'react';
+import { Element as ScrollElement } from 'react-scroll';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './WelcomeCards.scss';
@@ -17,6 +18,7 @@ const WelcomeCards: React.FC = () => {
 
     return (
         <section className={cnWelcomeCards({ inView })} ref={cards}>
+            <ScrollElement name="welcomeCards" />
             <div className={cnWelcomeCards('Container')}>
                 <div className={cnWelcomeCards('Head')}>
                     <Title type="h2">

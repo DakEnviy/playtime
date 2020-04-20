@@ -1,4 +1,5 @@
 import React from 'react';
+import { Element as ScrollElement } from 'react-scroll';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './WelcomeGames.scss';
@@ -18,6 +19,7 @@ const WelcomeGames: React.FC = () => {
 
     return (
         <section className={cnWelcomeGames({ inView })} ref={games}>
+            <ScrollElement name="welcomeGames" />
             <div className={cnWelcomeGames('Head')}>
                 <Title type="h2">
                     <span>Сыграйте</span> в наши лучшие игры

@@ -2,7 +2,8 @@
 @import '../../../../assets/styles/mixins';
 
 .NavigationItem {
-    &.Link { display: inline-block; }
+    display: inline-block;
+    cursor: pointer;
 
     & &-Text {
         position: relative;
