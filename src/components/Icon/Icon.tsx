@@ -8,8 +8,11 @@ type IconSize = 'xs' | 's' | 'm';
 
 type IconType =
     | 'gamepad'
+    | 'gamepadWhite'
     | 'ingots'
+    | 'ingotsWhite'
     | 'play'
+    | 'playWhite'
     | 'user'
     | 'lightning'
     | 'rub'
@@ -23,18 +26,19 @@ type IconType =
     | 'scissors';
 
 export interface IconProps {
-    size?: IconSize;
     type: IconType;
+    hover?: IconType;
+    size?: IconSize;
 
     className?: string;
 }
 
 const cnIcon = cn(s, 'Icon');
 
-const Icon: React.FC<IconProps> = ({ size = 's', type, className }) => {
+const Icon: React.FC<IconProps> = ({ type, hover, size = 's', className }) => {
     useStyles(s);
 
-    return <i className={cnIcon({ type, size }, [className])} />;
+    return <i className={cnIcon({ type, hover, size }, [className])} />;
 };
 
 export default Icon;
