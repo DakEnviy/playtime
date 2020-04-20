@@ -30,4 +30,15 @@
         justify-content: space-between;
         flex-wrap: wrap;
     }
+
+    .WelcomeCard {
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity 1s $nice-ease 0.3s, transform 1.3s $nice-ease;
+    }
+
+    &_inView .WelcomeCard {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

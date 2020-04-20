@@ -3,6 +3,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './WelcomeGames.scss';
 import { cn } from '../../../utils/bem-css-module';
+import { useInView } from '../../../hooks/useInView';
 import Title from '../../../components/Title/Title';
 import Icon from '../../../components/Icon/Icon';
 import Scroller from '../../../components/Scroller/Scroller';
@@ -13,8 +14,10 @@ const cnWelcomeGames = cn(s, 'WelcomeGames');
 const WelcomeGames: React.FC = () => {
     useStyles(s);
 
+    const [games, inView] = useInView({ unobserveOnEnter: true });
+
     return (
-        <section className={cnWelcomeGames()}>
+        <section className={cnWelcomeGames({ inView })} ref={games}>
             <div className={cnWelcomeGames('Head')}>
                 <Title type="h2">
                     <span>Сыграйте</span> в наши лучшие игры

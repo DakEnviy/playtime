@@ -3,6 +3,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './WelcomeCards.scss';
 import { cn } from '../../../utils/bem-css-module';
+import { useInView } from '../../../hooks/useInView';
 import Title from '../../../components/Title/Title';
 import Icon from '../../../components/Icon/Icon';
 import WelcomeCard from './WelcomeCard/WelcomeCard';
@@ -12,8 +13,10 @@ const cnWelcomeCards = cn(s, 'WelcomeCards');
 const WelcomeCards: React.FC = () => {
     useStyles(s);
 
+    const [cards, inView] = useInView({ unobserveOnEnter: true, threshold: 0.3 });
+
     return (
-        <section className={cnWelcomeCards()}>
+        <section className={cnWelcomeCards({ inView })} ref={cards}>
             <div className={cnWelcomeCards('Container')}>
                 <div className={cnWelcomeCards('Head')}>
                     <Title type="h2">

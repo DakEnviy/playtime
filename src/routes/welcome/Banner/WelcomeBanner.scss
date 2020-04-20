@@ -90,6 +90,14 @@
         background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
+        opacity: 0;
+        transform: translateX(100vw);
         pointer-events: none;
+        transition: opacity 1s $nice-ease 0.5s, transform 1s $nice-ease 0s;
+    }
+
+    &_inView &-NotebookImage {
+        opacity: 1;
+        transform: translateX(0);
     }
 }

@@ -3,6 +3,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './WelcomeBanner.scss';
 import { cn } from '../../../utils/bem-css-module';
+import { useInView } from '../../../hooks/useInView';
 import Title from '../../../components/Title/Title';
 import Button from '../../../components/Button/Button';
 import Text from '../../../components/Text/Text';
@@ -15,8 +16,10 @@ const cnWelcomeBanner = cn(s, 'WelcomeBanner');
 const WelcomeBanner: React.FC = () => {
     useStyles(s);
 
+    const [banner, inView] = useInView({ unobserveOnEnter: true });
+
     return (
-        <section className={cnWelcomeBanner()}>
+        <section className={cnWelcomeBanner({ inView })} ref={banner}>
             <div className={cnWelcomeBanner('Container')}>
                 <main className={cnWelcomeBanner('Main')}>
                     <div className={cnWelcomeBanner('Text')}>
