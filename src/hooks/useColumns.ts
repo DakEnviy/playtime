@@ -1,6 +1,7 @@
-import { MutableRefObject, useLayoutEffect, useState } from 'react';
+import { MutableRefObject, useState } from 'react';
 
 import useMeasure from './useMeasure';
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 export interface Column {
     minWidth: number;
@@ -14,7 +15,7 @@ const useColumns = <R extends HTMLElement, C extends Column[]>(
     const { width } = useMeasure(ref);
     const [columnWidths, setColumnWidths] = useState(() => columns.map(column => column.minWidth));
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         let minWidth = 0;
         let maxWidth = 0;
         let maxDelta = 0;

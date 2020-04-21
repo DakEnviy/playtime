@@ -1,5 +1,7 @@
-import { MutableRefObject, useLayoutEffect, useMemo, useState } from 'react';
+import { MutableRefObject, useMemo, useState } from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
+
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 export interface MeasureSnapshot {
     width: number;
@@ -19,7 +21,7 @@ const useMeasure = <T extends HTMLElement>(ref: MutableRefObject<T | null>): Mea
         [],
     );
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const element = ref.current;
 
         if (!element) return;
