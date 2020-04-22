@@ -98,6 +98,9 @@ async function start() {
     let hot: any;
     function reloadApp() {
         delete require.cache[require.resolve('../build/server')];
+        if (app) {
+            app.server.close();
+        }
         // eslint-disable-next-line global-require
         const compiled = require('../build/server');
         app = compiled.default;

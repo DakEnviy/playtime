@@ -1,4 +1,5 @@
 import path from 'path';
+import { createServer } from 'http';
 import express, { NextFunction, Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
@@ -11,7 +12,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { getDataFromTree } from 'react-apollo';
 
 import { AppContextTypes } from './context';
-import createApolloClient from './core/createApolloClient/createApolloClient.server';
+import createApolloClient from './utils/apollo/createApolloClient.server';
 import App from './components/App';
 import Html, { HtmlProps } from './components/Html';
 import { ErrorPage } from './routes/error/ErrorPage';
@@ -241,14 +242,21 @@ app.use((err: any, _0: Request, res: Response, _next: NextFunction) => {
 //
 // Launch the server
 // -----------------------------------------------------------------------------
-const promise = database.sequelize.sync().catch((err: Error) => console.error(err.stack));
-if (!module.hot) {
-    promise.then(() => {
-        app.listen(config.port, () => {
-            console.info(`The server is running at http://localhost:${config.port}/`);
-        });
+app.server = createServer(module.hot ? undefined : app);
+server.installSubscriptionHandlers(app.server);
+
+const port = module.hot ? config.devPort : config.port;
+const dbSync = database.sequelize.sync().catch((err: Error) => console.error(err.stack));
+
+dbSync.then(() => {
+    app.server.listen(port, () => {
+        console.info(
+            module.hot
+                ? `The development server is running at http://localhost:${port}/`
+                : `The server is running at http://localhost:${port}/`,
+        );
     });
-}
+});
 
 //
 // Hot Module Replacement
