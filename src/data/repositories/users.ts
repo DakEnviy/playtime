@@ -24,6 +24,10 @@ class UsersRepository extends BaseRepository {
             avatar,
         });
     }
+
+    async getUserById(userId: string): Promise<User | null> {
+        return this.db.User.findByPk(userId);
+    }
 }
 
 export default UsersRepository;

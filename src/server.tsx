@@ -21,7 +21,7 @@ import passport from './passport';
 import router from './router';
 import { database } from './data/database';
 import AppModule from './data/modules/app';
-import { ApolloContext } from './interfaces/apollo';
+import createContext from './utils/apollo/createContext';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 // @ts-ignore
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
@@ -120,13 +120,7 @@ const server = new ApolloServer({
     playground: __DEV__ ? { settings: { 'request.credentials': 'include' } } : false,
     debug: __DEV__,
     tracing: __DEV__,
-    context({ req, res }): ApolloContext {
-        return {
-            req,
-            res,
-            user: req.user,
-        };
-    },
+    context: ({ req, res }) => createContext(req, res),
 });
 server.applyMiddleware({ app });
 
@@ -144,15 +138,9 @@ app.get('*', async (req, res, next) => {
             styles.forEach(style => css.add(style._getCss()));
         };
 
-        const apolloContext: ApolloContext = {
-            req,
-            res,
-            user: req.user,
-        };
-
         const apolloClient = createApolloClient({
             schema: AppModule.schema,
-            context: apolloContext,
+            context: await createContext(req, res),
         });
 
         // Global (context) variables that can be easily accessed from any React component
