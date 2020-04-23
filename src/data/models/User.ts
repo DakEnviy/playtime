@@ -2,10 +2,17 @@ import { DataTypes, Model, Sequelize } from 'sequelize';
 
 import { AssociableModelStatic } from './index';
 
+export enum UserRole {
+    Default = 'Default',
+    Moderator = 'Moderator',
+    Admin = 'Admin',
+}
+
 export interface User extends Model {
     readonly id: string;
     readonly username: string;
     readonly vkId: string;
+    readonly role: UserRole;
     readonly avatar: string;
     readonly createdAt: Date;
     readonly updatedAt: Date;
@@ -24,6 +31,12 @@ export const initUser = (sequelize: Sequelize): UserStatic => {
         vkId: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+
+        role: {
+            type: DataTypes.ENUM(...Object.values(UserRole)),
+            allowNull: false,
+            defaultValue: UserRole.Default,
         },
 
         username: {

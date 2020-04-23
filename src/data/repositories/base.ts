@@ -1,7 +1,7 @@
 import { Database } from '../models';
 
 class BaseRepository {
-    db: Database;
+    protected db: Database;
 
     constructor(db: Database) {
         this.db = db;

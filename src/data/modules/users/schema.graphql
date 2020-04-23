@@ -1,10 +1,21 @@
-type User {
-    id: ID!
-    username: String!
-    avatar: URL!
+schema {
+    query: Query
 }
 
 type Query {
     me: User
     user(userId: ID!): User
+}
+
+type User {
+    id: ID!
+    role: UserRole!
+    username: String!
+    avatar: URL!
+}
+
+enum UserRole {
+    Default
+    Moderator
+    Admin
 }
