@@ -26,6 +26,9 @@ export const initUser = (sequelize: Sequelize): UserStatic => {
             type: DataTypes.INTEGER.UNSIGNED,
             primaryKey: true,
             autoIncrement: true,
+            get(this: User) {
+                return this.getDataValue('id').toString();
+            },
         },
 
         vkId: {
