@@ -1,7 +1,8 @@
 import { Sequelize, Model } from 'sequelize';
 import { forEach } from 'lodash';
 
-import { UserStatic, initUser } from './User';
+import { initUser, UserStatic } from './User';
+import { initMessage, MessageStatic } from './Message';
 
 export type ModelStatic<M extends Model> = typeof Model & { new (): M };
 
@@ -9,7 +10,7 @@ export type AssociableModelStatic<M extends Model> = ModelStatic<M> & {
     associate: (database: Database) => void;
 };
 
-function isAssociable<M extends Model>(model: Sequelize | ModelStatic<M>): model is AssociableModelStatic<M> {
+function isAssociable(model: Sequelize | ModelStatic<Model>): model is AssociableModelStatic<Model> {
     return 'associable' in model;
 }
 
@@ -18,12 +19,14 @@ export interface Database {
 
     // Models
     User: UserStatic;
+    Message: MessageStatic;
 }
 
 export const initDatabase = (sequelize: Sequelize): Database => {
     const database: Database = {
         sequelize,
         User: initUser(sequelize),
+        Message: initMessage(sequelize),
     };
 
     forEach(database, model => {
