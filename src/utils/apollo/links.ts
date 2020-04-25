@@ -28,8 +28,8 @@ export const httpLink = (options: HttpLink.Options = {}) => {
 };
 
 export const wsLink = (config: Partial<WebSocketLink.Configuration> = {}) => {
-    const { hostname } = window.location;
-    const host = __DEV__ ? `${hostname}:3002` : hostname;
+    const { hostname, host: originalHost } = window.location;
+    const host = __DEV__ ? `${hostname}:3002` : originalHost;
 
     return new WebSocketLink({
         uri: `ws://${host}/graphql`,
