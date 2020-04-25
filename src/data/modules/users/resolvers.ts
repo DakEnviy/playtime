@@ -1,8 +1,12 @@
+import { ModuleContext } from '@graphql-modules/core';
+import { IRules } from 'graphql-shield';
+
+import { UsersContext } from './index';
 import { Resolver, Resolvers, TypeResolvers } from '../../../interfaces/graphql';
 import { Query, QueryUserArgs, User } from '../../../__generated__/graphql';
-import { UsersContext } from './index';
-import UsersProvider from './users.provider';
-import { User as UserModel } from '../../models/User';
+import { repositories } from '../../database';
+import { isAuth } from '../rules';
+import { checkUserArgs } from './rules';
 
 type QueryType = Pick<Query, 'me' | 'user'>;
 type UserType = Pick<User, 'id' | 'role' | 'username' | 'avatar'>;
@@ -16,31 +20,23 @@ type UsersResolvers = Resolvers<
     {
         Query: TypeResolvers<QueryType, QueryMapping>;
     },
-    UsersContext
+    ModuleContext<UsersContext>
 >;
 
-const userAdapter = (user: UserModel): UserType => ({
-    id: user.id,
-    username: user.username,
-    avatar: user.avatar,
-    role: user.role,
-});
-
-const resolvers: UsersResolvers = {
+export const rules: IRules = {
     Query: {
-        me: async (_0, _1, ctx) => {
-            if (!ctx.user) return null;
-
-            const user = await ctx.injector.get(UsersProvider).getUserById(ctx.user.id);
-
-            return userAdapter(user);
-        },
-        user: async (_0, { userId }, ctx) => {
-            const user = await ctx.injector.get(UsersProvider).getUserById(userId);
-
-            return userAdapter(user);
-        },
+        me: isAuth,
+        user: checkUserArgs,
     },
 };
 
-export default resolvers;
+export const resolvers: UsersResolvers = {
+    Query: {
+        me: (_0, _1, ctx) => {
+            return ctx.user || null;
+        },
+        user: (_0, { userId }) => {
+            return repositories.users.getUserById(userId);
+        },
+    },
+};

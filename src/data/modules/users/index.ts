@@ -1,21 +1,25 @@
-import { GraphQLModule } from '@graphql-modules/core';
+import { shield } from 'graphql-shield';
 
+import { GraphQLModuleWithMiddlewares } from '../../../utils/graphql-modules-middlewares';
+import shieldConfig from '../../../utils/graphql-shield/config';
+import { User } from '../../models/User';
 import { ApolloContext } from '../../../interfaces/apollo';
 import ScalarsModule from '../scalars';
-import UsersProvider from './users.provider';
 import schema from './schema.graphql';
-import resolvers from './resolvers';
+import { resolvers, rules } from './resolvers';
 
 export interface UsersContext {
-    user?: Express.User;
+    user?: User;
 }
 
-const UsersModule = new GraphQLModule<{}, ApolloContext, UsersContext>({
+const permissions = shield(rules, shieldConfig);
+
+const UsersModule = new GraphQLModuleWithMiddlewares<{}, ApolloContext, UsersContext>({
     name: 'users',
     imports: [ScalarsModule],
-    providers: [UsersProvider],
     typeDefs: schema,
     resolvers,
+    middlewares: [permissions],
     context: ({ user }) => ({ user }),
 });
 

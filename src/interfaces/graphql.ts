@@ -1,10 +1,9 @@
-import { ModuleContext } from '@graphql-modules/core';
 import { GraphQLResolveInfo, GraphQLScalarType } from 'graphql';
 
 export type MayPromise<T> = T | Promise<T>;
 
 export interface FieldResolver<TContext, TParent, TArgs, TResult> {
-    (parent: TParent, args: TArgs, context: ModuleContext<TContext>, info: GraphQLResolveInfo): MayPromise<TResult>;
+    (parent: TParent, args: TArgs, context: TContext, info: GraphQLResolveInfo): MayPromise<TResult>;
 }
 
 export interface Resolver<TResult, TArgs = {}> {

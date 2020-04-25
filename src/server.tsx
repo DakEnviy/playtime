@@ -1,3 +1,4 @@
+import 'reflect-metadata'; // To enable reflection
 import path from 'path';
 import { createServer } from 'http';
 import express, { NextFunction, Request, Response } from 'express';
@@ -10,6 +11,7 @@ import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
 import { ApolloServer } from 'apollo-server-express';
 import { getDataFromTree } from 'react-apollo';
+import depthLimit from 'graphql-depth-limit';
 
 import { AppContextTypes } from './context';
 import createApolloClient from './utils/apollo/createApolloClient.server';
@@ -121,6 +123,7 @@ const server = new ApolloServer({
     debug: __DEV__,
     tracing: __DEV__,
     context: ({ req, res }) => createContext(req, res),
+    validationRules: [depthLimit(5)],
 });
 server.applyMiddleware({ app });
 
