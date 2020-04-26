@@ -28,6 +28,22 @@ class UsersRepository extends BaseRepository {
     async getUserById(userId: string): Promise<User | null> {
         return this.db.User.findByPk(userId);
     }
+
+    async getUserByIdStrict(userId: string): Promise<User> {
+        const user = await this.getUserById(userId);
+
+        if (!user) {
+            throw new Error('NO_USER');
+        }
+
+        return user;
+    }
+
+    async muteChat(userId: string, isChatMute: boolean): Promise<User> {
+        const user = await this.getUserByIdStrict(userId);
+
+        return user.update({ isChatMute });
+    }
 }
 
 export default UsersRepository;

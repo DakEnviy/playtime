@@ -11,7 +11,7 @@ export type AssociableModelStatic<M extends Model> = ModelStatic<M> & {
 };
 
 function isAssociable(model: Sequelize | ModelStatic<Model>): model is AssociableModelStatic<Model> {
-    return 'associable' in model;
+    return 'associate' in model;
 }
 
 export interface Database {

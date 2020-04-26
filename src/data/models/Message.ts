@@ -44,6 +44,7 @@ export const initMessage = (sequelize: Sequelize): MessageStatic => {
         },
         {
             paranoid: true,
+            indexes: [{ name: 'createdAt', using: 'BTREE', fields: [{ name: 'createdAt', order: 'DESC' }] }],
         },
     ) as MessageStatic;
 

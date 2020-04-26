@@ -15,6 +15,7 @@ export interface User extends Model {
     readonly vkId: string;
     readonly role: UserRole;
     readonly avatar: string;
+    readonly isChatMute: boolean;
     readonly createdAt: Date;
     readonly updatedAt: Date;
 
@@ -53,6 +54,12 @@ export const initUser = (sequelize: Sequelize): UserStatic => {
         avatar: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+
+        isChatMute: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
         },
     }) as UserStatic;
 
