@@ -2,7 +2,8 @@ import { ModuleContext } from '@graphql-modules/core';
 import { IRules } from 'graphql-shield';
 
 import { ChatContext } from './index';
-import { Resolver, Resolvers, TypeResolvers } from '../../../interfaces/graphql';
+import { Resolver, ResolverOptions, Resolvers, TypeResolvers } from '../../../interfaces/graphql';
+import { SerializedModel } from '../../../interfaces/sequelize';
 import {
     DeletedMessagePayload,
     DeletedMessagesBySenderPayload,
@@ -12,16 +13,19 @@ import {
     MutationMuteChatArgs,
     MutationSendMessageArgs,
     Query,
+    Subscription,
 } from '../../../__generated__/graphql';
 import { Message as MessageBackend } from '../../models/Message';
 import { OriginUserParent } from '../users/resolvers';
 import { repositories } from '../../database';
 import { isAuth, isUserOwner } from '../rules';
+import pubsub from '../../pubsub';
 
 export type OriginMessageParent = MessageBackend;
 
 type QueryType = Pick<Query, 'messages'>;
 type MutationType = Pick<Mutation, 'sendMessage' | 'deleteMessage' | 'muteChat'>;
+type SubscriptionType = Pick<Subscription, 'sentMessage' | 'deletedMessage' | 'deletedMessagesBySender'>;
 type MessageType = Pick<Message, 'id' | 'sender' | 'message' | 'createdAt'>;
 
 interface QueryMapping {
@@ -32,6 +36,12 @@ interface MutationMapping {
     sendMessage: Resolver<OriginMessageParent, MutationSendMessageArgs>;
     deleteMessage: Resolver<DeletedMessagePayload, MutationDeleteMessageArgs>;
     muteChat: Resolver<DeletedMessagesBySenderPayload, MutationMuteChatArgs>;
+}
+
+interface SubscriptionMapping {
+    sentMessage: ResolverOptions<OriginMessageParent, SerializedModel<OriginMessageParent>>;
+    deletedMessage: ResolverOptions<DeletedMessagePayload>;
+    deletedMessagesBySender: ResolverOptions<DeletedMessagesBySenderPayload>;
 }
 
 interface MessageMapping {
@@ -45,6 +55,7 @@ type ChatResolvers = Resolvers<
     {
         Query: TypeResolvers<QueryType, QueryMapping>;
         Mutation: TypeResolvers<MutationType, MutationMapping>;
+        Subscription: TypeResolvers<SubscriptionType, SubscriptionMapping>;
         Message: TypeResolvers<MessageType, MessageMapping, OriginMessageParent>;
     },
     ModuleContext<ChatContext>
@@ -67,10 +78,15 @@ export const resolvers: ChatResolvers = {
     },
     Mutation: {
         sendMessage: async (_0, { input: { message } }, { user }) => {
-            return repositories.messages.addMessage(user!.id, message);
+            const sentMessage = await repositories.messages.addMessage(user!.id, message);
+
+            pubsub.publish('sentMessage', sentMessage).then();
+            return sentMessage;
         },
         deleteMessage: async (_0, { input: { messageId } }) => {
             await repositories.messages.deleteMessage(messageId);
+
+            pubsub.publish('deletedMessage', { messageId }).then();
             return { messageId };
         },
         muteChat: async (_0, { input: { userId, isChatMute } }) => {
@@ -78,11 +94,27 @@ export const resolvers: ChatResolvers = {
 
             if (isChatMute) {
                 await repositories.messages.deleteMessagesBySender(userId);
+
+                pubsub.publish('deletedMessagesBySender', { senderId: userId }).then();
             } else {
                 await repositories.messages.restoreMessagesBySender(userId);
             }
 
             return { senderId: userId };
+        },
+    },
+    Subscription: {
+        sentMessage: {
+            resolve: ({ sentMessage }) => {
+                return repositories.messages.getMessageByIdStrict(sentMessage.id);
+            },
+            subscribe: () => pubsub.asyncIterator('sentMessage'),
+        },
+        deletedMessage: {
+            subscribe: () => pubsub.asyncIterator('deletedMessage'),
+        },
+        deletedMessagesBySender: {
+            subscribe: () => pubsub.asyncIterator('deletedMessagesBySender'),
         },
     },
     Message: {

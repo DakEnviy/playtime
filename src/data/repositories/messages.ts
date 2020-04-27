@@ -2,9 +2,26 @@ import BaseRepository from './base';
 import { Message } from '../models/Message';
 
 class MessagesRepository extends BaseRepository {
+    async getMessageById(messageId: string): Promise<Message | null> {
+        return this.db.Message.findByPk(messageId);
+    }
+
+    async getMessageByIdStrict(messageId: string): Promise<Message> {
+        const message = await this.getMessageById(messageId);
+
+        if (!message) {
+            throw new Error('NO_MESSAGE');
+        }
+
+        return message;
+    }
+
     async getMessages(): Promise<Message[]> {
         return this.db.Message.findAll({
-            order: [['createdAt', 'DESC']],
+            order: [
+                ['createdAt', 'DESC'],
+                ['id', 'DESC'],
+            ],
             limit: 30,
         });
     }

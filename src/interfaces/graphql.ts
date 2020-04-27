@@ -1,24 +1,39 @@
-import { GraphQLResolveInfo, GraphQLScalarType } from 'graphql';
+import { GraphQLIsTypeOfFn, GraphQLResolveInfo, GraphQLScalarType, GraphQLTypeResolver } from 'graphql';
 
-export type MayPromise<T> = T | Promise<T>;
-
-export type MustBeSubType<SubType extends object, Type extends object> = {
-    [P in keyof SubType]: P extends keyof Type ? unknown : never;
-};
-
-export type FilterFieldsByType<TObject extends object, TType> = {
-    [P in keyof TObject]: TObject[P] extends TType ? P : never;
-};
-
-export type AllowedNames<TObject extends object, TType> = FilterFieldsByType<TObject, TType>[keyof TObject];
+import { FilterFieldNamesByType, KeyType, MayPromise, MustBeSubType, RequiredBy } from './common';
 
 export interface FieldResolver<TContext, TParent, TArgs, TResult> {
     (parent: TParent, args: TArgs, context: TContext, info: GraphQLResolveInfo): MayPromise<TResult>;
 }
 
+export interface ResolverOptionsObjectOriginal<TContext, TRoot, TParent, TArgs, TResult, TTrigger extends KeyType> {
+    fragment?: string;
+    resolve?: FieldResolver<TContext, Record<TTrigger, TParent>, TArgs, TResult>;
+    subscribe?: FieldResolver<TContext, TRoot, TArgs, AsyncIterator<Record<TTrigger, TParent>>>;
+    __resolveType?: GraphQLTypeResolver<TParent, TContext>;
+    __isTypeOf?: GraphQLIsTypeOfFn<TParent, TContext>;
+}
+
+export type ResolverOptionsObject<
+    TContext,
+    TRoot,
+    TParent,
+    TArgs,
+    TResult,
+    TTrigger extends KeyType
+> = TParent extends TResult
+    ? ResolverOptionsObjectOriginal<TContext, TRoot, TParent, TArgs, TResult, TTrigger>
+    : RequiredBy<ResolverOptionsObjectOriginal<TContext, TRoot, TParent, TArgs, TResult, TTrigger>, 'resolve'>;
+
 export interface Resolver<TResult, TArgs = {}> {
     result: TResult;
     args: TArgs;
+}
+
+export interface ResolverOptions<TResult, TParent = TResult, TArgs = {}> {
+    optionsResult: TResult;
+    optionsParent: TParent;
+    optionsArgs: TArgs;
 }
 
 export interface TypeResolvers<
@@ -31,7 +46,7 @@ export interface TypeResolvers<
     parent: TParent;
 }
 
-export interface EnumResolver<TType extends string | number | symbol, TValue> {
+export interface EnumResolver<TType extends KeyType, TValue> {
     type: TType;
     value: TValue;
 }
@@ -39,9 +54,11 @@ export interface EnumResolver<TType extends string | number | symbol, TValue> {
 export type Resolvers<TResolvers extends object, TContext> = {
     [P in keyof TResolvers]: TResolvers[P] extends TypeResolvers<infer TType, infer TMapping, infer TParent>
         ? {
-              [K in Exclude<keyof Required<TType>, AllowedNames<TMapping, void>>]: K extends keyof TMapping
+              [K in Exclude<keyof Required<TType>, FilterFieldNamesByType<TMapping, void>>]: K extends keyof TMapping
                   ? TMapping[K] extends Resolver<infer TResult, infer TArgs>
                       ? FieldResolver<TContext, TParent, TArgs, TResult>
+                      : TMapping[K] extends ResolverOptions<infer TResult, infer TInnerParent, infer TArgs>
+                      ? ResolverOptionsObject<TContext, TParent, TInnerParent, TArgs, TResult, K>
                       : FieldResolver<TContext, TParent, {}, TMapping[K]>
                   : FieldResolver<TContext, TParent, {}, TType[K]>;
           }

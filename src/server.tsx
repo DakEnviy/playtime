@@ -23,7 +23,7 @@ import passport from './passport';
 import router from './router';
 import { database } from './data/database';
 import AppModule from './data/modules/app';
-import createContext from './utils/apollo/createContext';
+import { createContext, createWebSocketContext } from './utils/apollo/createContext';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 // @ts-ignore
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
@@ -119,11 +119,21 @@ const server = new ApolloServer({
     schema: AppModule.schema,
     uploads: false,
     introspection: __DEV__,
-    playground: __DEV__ ? { settings: { 'request.credentials': 'include' } } : false,
     debug: __DEV__,
     tracing: __DEV__,
-    context: ({ req, res }) => createContext(req, res),
+    playground: __DEV__
+        ? {
+              settings: {
+                  'request.credentials': 'include',
+              },
+              subscriptionEndpoint: 'ws://localhost:3002/graphql',
+          }
+        : false,
     validationRules: [depthLimit(5)],
+    context: ({ req, res }) => createContext(req, res),
+    subscriptions: {
+        onConnect: connectionParams => createWebSocketContext(connectionParams),
+    },
 });
 server.applyMiddleware({ app });
 
