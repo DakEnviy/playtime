@@ -23,6 +23,7 @@ import passport from './passport';
 import router from './router';
 import { database } from './data/database';
 import AppModule from './data/modules/app';
+import rateLimiterMiddleware from './utils/middlewares/rateLimiterRedis';
 import { createContext, createWebSocketContext } from './utils/apollo/createContext';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 // @ts-ignore
@@ -59,6 +60,11 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//
+// Enable rate-limit
+// -----------------------------------------------------------------------------
+app.use(rateLimiterMiddleware());
 
 //
 // Authentication
