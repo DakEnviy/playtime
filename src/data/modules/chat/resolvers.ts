@@ -1,5 +1,5 @@
 import { ModuleContext } from '@graphql-modules/core';
-import { IRules } from 'graphql-shield';
+import { and, IRules } from 'graphql-shield';
 
 import { ChatContext } from './index';
 import { Resolver, ResolverOptions, Resolvers, TypeResolvers } from '../../../interfaces/graphql';
@@ -18,8 +18,11 @@ import {
 import { Message as MessageBackend } from '../../models/Message';
 import { OriginUserParent } from '../users/resolvers';
 import { repositories } from '../../database';
-import { isAuth, isUserOwner } from '../rules';
 import pubsub from '../../pubsub';
+import { isAdminOrModerator, isAuth, isUserOwner } from '../rules';
+import { checkSendMessageArgs } from './rules';
+import { UserError } from '../../../utils/graphql-shield/errors';
+import limit from '../../../utils/graphql-shield/limit';
 
 export type OriginMessageParent = MessageBackend;
 
@@ -63,7 +66,9 @@ type ChatResolvers = Resolvers<
 
 export const rules: IRules = {
     Mutation: {
-        sendMessage: isAuth,
+        sendMessage: and(isAuth, checkSendMessageArgs, limit(15)),
+        deleteMessage: isAdminOrModerator,
+        muteChat: isAdminOrModerator,
     },
     User: {
         isChatMute: isUserOwner,
@@ -78,6 +83,10 @@ export const resolvers: ChatResolvers = {
     },
     Mutation: {
         sendMessage: async (_0, { input: { message } }, { user }) => {
+            if (user!.isChatMute) {
+                throw new UserError('CHAT_MUTE_ERROR');
+            }
+
             const sentMessage = await repositories.messages.addMessage(user!.id, message);
 
             pubsub.publish('sentMessage', sentMessage).then();
