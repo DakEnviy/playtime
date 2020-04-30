@@ -7,9 +7,9 @@ export const checkUserArgs = inputRule()(yup =>
             .mixed<string>()
             .test({
                 test: value => !isNaN(+value),
-                message: 'INVALID_USER_ID',
+                message: 'INVALID_USER_ID_TEST',
             })
-            .required(),
+            .required('INVALID_USER_ID_REQUIRED'),
     }),
 );
 

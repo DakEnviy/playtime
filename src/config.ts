@@ -23,6 +23,12 @@ export default {
     // Database
     databaseUrl: process.env.DATABASE_URL || 'mysql://root:909123@localhost:3306/playtime',
 
+    // Redis
+    redis: {
+        host: process.env.REDIS_HOST || 'localhost',
+        port: Number(process.env.REDIS_PORT || 6379),
+    },
+
     // Web analytics
     analytics: {
         // https://analytics.google.com/

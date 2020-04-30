@@ -1,15 +1,15 @@
 {
-  "name": "GraphQL Schema",
-  "schemaPath": "./src/data/graphql/schema.graphql",
-  "extensions": {
-    "endpoints": {
-      "GraphQL Endpoint": {
-        "url": "http://localhost:8080/graphql",
-        "headers": {
-          "user-agent": "JS GraphQL"
-        },
-        "introspect": false
-      }
+    "name": "GraphQL Schema",
+    "includes": ["**/*"],
+    "extensions": {
+        "endpoints": {
+            "GraphQL Endpoint": {
+                "url": "http://localhost:3000/graphql",
+                "headers": {
+                    "user-agent": "JS GraphQL"
+                },
+                "introspect": false
+            }
+        }
     }
-  }
 }

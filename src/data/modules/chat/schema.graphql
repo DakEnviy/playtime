@@ -1,0 +1,53 @@
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+type Query {
+    messages: [Message!]!
+}
+
+type Mutation {
+    sendMessage(input: SendMessageInput!): Message!
+    deleteMessage(input: DeleteMessageInput!): DeletedMessagePayload!
+    muteChat(input: MuteChatInput!): DeletedMessagesBySenderPayload!
+}
+
+type Subscription {
+    sentMessage: Message!
+    deletedMessage: DeletedMessagePayload!
+    deletedMessagesBySender: DeletedMessagesBySenderPayload!
+}
+
+extend type User {
+    isChatMute: Boolean!
+}
+
+type Message {
+    id: ID!
+    sender: User!
+    message: String!
+    createdAt: DateTime!
+}
+
+input SendMessageInput {
+    message: String!
+}
+
+input DeleteMessageInput {
+    messageId: ID!
+}
+
+type DeletedMessagePayload {
+    messageId: ID!
+}
+
+input MuteChatInput {
+    userId: ID!
+    isChatMute: Boolean! = true
+}
+
+type DeletedMessagesBySenderPayload {
+    senderId: ID!
+}

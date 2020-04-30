@@ -23,7 +23,8 @@ import passport from './passport';
 import router from './router';
 import { database } from './data/database';
 import AppModule from './data/modules/app';
-import createContext from './utils/apollo/createContext';
+import rateLimiterMiddleware from './utils/middlewares/rateLimiterRedis';
+import { createContext, createWebSocketContext } from './utils/apollo/createContext';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 // @ts-ignore
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
@@ -59,6 +60,11 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//
+// Enable rate-limit
+// -----------------------------------------------------------------------------
+app.use(rateLimiterMiddleware());
 
 //
 // Authentication
@@ -119,11 +125,21 @@ const server = new ApolloServer({
     schema: AppModule.schema,
     uploads: false,
     introspection: __DEV__,
-    playground: __DEV__ ? { settings: { 'request.credentials': 'include' } } : false,
     debug: __DEV__,
     tracing: __DEV__,
-    context: ({ req, res }) => createContext(req, res),
+    playground: __DEV__
+        ? {
+              settings: {
+                  'request.credentials': 'include',
+              },
+              subscriptionEndpoint: 'ws://localhost:3002/graphql',
+          }
+        : false,
     validationRules: [depthLimit(5)],
+    context: ({ req, res }) => createContext(req, res),
+    subscriptions: {
+        onConnect: connectionParams => createWebSocketContext(connectionParams),
+    },
 });
 server.applyMiddleware({ app });
 
