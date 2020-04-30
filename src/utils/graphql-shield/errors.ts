@@ -15,7 +15,7 @@ const isError = (err: unknown): err is Error => {
 
 export const fallbackError = (err: unknown): Error => {
     if (err === null) {
-        return new Error('DEFAULT_ERROR');
+        return new Error('ERROR');
     }
 
     if (err instanceof UserError) {
