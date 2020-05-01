@@ -15,6 +15,14 @@ const routes: Route<AppRouterContext, RouteResult> = {
             path: '',
             load: () => import(/* webpackChunkName: 'welcome' */ './welcome'),
         },
+        {
+            path: '/classic',
+            load: () => import(/* webpackChunkName: 'classic' */ './classic'),
+        },
+        {
+            path: '/battle',
+            load: () => import(/* webpackChunkName: 'battle' */ './battle'),
+        },
 
         // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
         {
