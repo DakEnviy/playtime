@@ -20,10 +20,32 @@ type IconType =
     | 'ingotsCut'
     | 'playRedCut'
     | 'guard'
+    | 'diamond'
     | 'diamondWhite'
     | 'sword'
     | 'dice'
-    | 'scissors';
+    | 'automat'
+    | 'scissors'
+    | 'wheel'
+    | 'cards'
+    | 'cube'
+    | 'faq'
+    | 'swordWhite'
+    | 'diceWhite'
+    | 'automatWhite'
+    | 'scissorsWhite'
+    | 'wheelWhite'
+    | 'cardsWhite'
+    | 'cubeWhite'
+    | 'faqWhite'
+    | 'plusWhite'
+    | 'prize'
+    | 'bell'
+    | 'message'
+    | 'prizeWhite'
+    | 'bellWhite'
+    | 'messageWhite'
+    | 'signOut';
 
 export interface IconProps {
     type: IconType;
