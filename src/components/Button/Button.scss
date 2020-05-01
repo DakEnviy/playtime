@@ -187,7 +187,8 @@
         }
     }
 
-    &-Text {
+    &-Text,
+    &-Icon {
         position: relative;
         z-index: 2;
         -webkit-font-smoothing: antialiased;
@@ -196,6 +197,11 @@
     &_weight_normal .Button-Text { font-weight: 400; }
     &_weight_semiBold .Button-Text { font-weight: 600; }
     &_weight_bold .Button-Text { font-weight: 700; }
+
+    &:hover .Button-Icon_withHover {
+        &::before { opacity: 0; }
+        &::after { opacity: 1; }
+    }
 
     &_shape_right:hover::before,
     &_shape_alphaRight:hover::before,
@@ -208,7 +214,8 @@
             margin-left: 1px;
         }
 
-        .Button-Text {
+        .Button-Text,
+        .Button-Icon {
             top: 1px;
             left: 1px;
         }
