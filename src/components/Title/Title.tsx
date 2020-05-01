@@ -15,6 +15,7 @@ export interface TitleProps {
     weight?: TextProps['weight'];
     color?: TextProps['color'];
     italic?: TextProps['italic'];
+    upper?: TextProps['upper'];
 
     className?: string;
     children: TextProps['children'];
@@ -30,6 +31,7 @@ const Title: React.FC<TitleProps> = ({
     color = 'white',
     weight = 'bold',
     italic,
+    upper,
     className,
     children,
 }) => {
@@ -39,7 +41,7 @@ const Title: React.FC<TitleProps> = ({
 
     return (
         <Tag className={cnTitle(null, [className])}>
-            <Text font={font} size={size} line={line} weight={weight} color={color} italic={italic}>
+            <Text font={font} size={size} line={line} weight={weight} color={color} italic={italic} upper={upper}>
                 {children}
             </Text>
         </Tag>
