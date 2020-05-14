@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './ChatMessage.scss';
@@ -97,6 +97,8 @@ const cnChatMessage = cn(s, 'ChatMessage');
 const ChatMessage: React.FC<ChatMessageProps> = ({ user, message, time }) => {
     useStyles(s);
 
+    const transformedMessage = useMemo(() => transformMessage(message), [message]);
+
     return (
         <div className={cnChatMessage()}>
             <img className={cnChatMessage('Avatar')} src={user.avatar} alt={user.username} />
@@ -109,7 +111,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ user, message, time }) => {
                         {time}
                     </Text>
                 </div>
-                <TextBlock weight="semiBold">{transformMessage(message)}</TextBlock>
+                <TextBlock weight="semiBold">{transformedMessage}</TextBlock>
             </div>
         </div>
     );
