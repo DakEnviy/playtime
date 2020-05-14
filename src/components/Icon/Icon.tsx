@@ -45,7 +45,8 @@ type IconType =
     | 'prizeWhite'
     | 'bellWhite'
     | 'messageWhite'
-    | 'signOut';
+    | 'signOut'
+    | 'smile';
 
 export interface IconProps {
     type: IconType;

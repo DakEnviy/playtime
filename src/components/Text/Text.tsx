@@ -35,13 +35,12 @@ const Text: React.FC<TextProps> = ({
     italic,
     upper,
     semantic,
-    className: mixClassName,
+    className,
     children,
 }) => {
     useStyles(s);
 
     const line: TextLine = originalLine ?? size;
-    const className = cnText({ font, size, line, weight, color, italic, upper }, [mixClassName]);
 
     let Tag: 'span' | 'strong' = 'span';
     let elem: React.ReactNode = children;
@@ -56,7 +55,7 @@ const Text: React.FC<TextProps> = ({
         }
     }
 
-    return <Tag className={className}>{elem}</Tag>;
+    return <Tag className={cnText({ font, size, line, weight, color, italic, upper }, [className])}>{elem}</Tag>;
 };
 
 export default Text;

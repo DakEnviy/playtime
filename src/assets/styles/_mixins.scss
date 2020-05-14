@@ -42,6 +42,53 @@
 /* MIXINS
    =============================================== */
 
+@mixin hide_scrollbar() {
+    -ms-overflow-style: none;
+    //noinspection CssUnknownProperty
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { display: none; }
+}
+
+// Typography, that's all =)
+@mixin typography() {
+    font-size: 100%;
+
+    &_font_OpenSans { font-family: OpenSans, sans-serif; }
+    &_font_Rubik { font-family: Rubik, sans-serif; }
+
+    &_size_xs { font-size: $font-size-xs; }
+    &_size_s { font-size: $font-size-s; }
+    &_size_m { font-size: $font-size-m; }
+    &_size_l { font-size: $font-size-l; }
+    &_size_xl { font-size: $font-size-xl; }
+    &_size_xxl { font-size: $font-size-xxl; }
+
+    &_line_xs { line-height: $line-height-xs; }
+    &_line_s { line-height: $line-height-s; }
+    &_line_m { line-height: $line-height-m; }
+    &_line_l { line-height: $line-height-l; }
+    &_line_xl { line-height: $line-height-xl; }
+    &_line_xxl { line-height: $line-height-xxl; }
+
+    &_weight_regular { font-weight: 400; }
+    &_weight_semiBold { font-weight: 600; }
+    &_weight_bold { font-weight: 700; }
+
+    &_color_gray { color: $color-gray; }
+    &_color_white { color: $color-white; }
+    &_color_blue { color: $color-blue; }
+    &_color_green { color: $color-green; }
+    &_color_gold { color: $color-gold; }
+    &_color_red { color: $color-red; }
+    &_color_pink { color: $color-pink; }
+    &_color_aqua { color: $color-aqua; }
+
+    &_italic { font-style: italic; }
+
+    &_upper { text-transform: uppercase; }
+}
+
 // Mirror gradient for transitions
 @mixin grad_mirror($colors) {
     background: grad_mirror($colors);

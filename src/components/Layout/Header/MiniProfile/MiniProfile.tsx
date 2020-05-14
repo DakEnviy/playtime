@@ -3,7 +3,6 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './MiniProfile.scss';
 import { cn } from '../../../../utils/bem-css-module';
-import avatarImg from './avatar.jpg';
 import Link from '../../../Link/Link';
 import Icon from '../../../Icon/Icon';
 
@@ -17,7 +16,11 @@ const MiniProfile: React.FC<MiniProfileProps> = () => {
     return (
         <div className={cnMiniProfile()}>
             <Link className={cnMiniProfile('Avatar')} to="/">
-                <img className={cnMiniProfile('AvatarImg')} src={avatarImg} alt="Аватар" />
+                <img
+                    className={cnMiniProfile('AvatarImg')}
+                    src="https://ae01.alicdn.com/kf/HTB1FA7NaifrK1RjSspbq6A4pFXau/Cool-Stylish-and-Funny-Cute-Pet-Sunglasses-Classic-Retro-Circular-Metal-Prince-Sunglasses-for-Cat-Chihuahua.jpg"
+                    alt="Аватар"
+                />
             </Link>
             <Link className={cnMiniProfile('LogOut')} to="/logout" external>
                 <Icon className={cnMiniProfile('LogOutIcon')} type="signOut" size="xs" />

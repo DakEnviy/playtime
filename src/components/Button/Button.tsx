@@ -17,6 +17,8 @@ export interface ButtonProps {
     weight?: ButtonWeight;
     icon?: IconProps['type'];
     iconHover?: IconProps['hover'];
+    iconSize?: IconProps['size'];
+    clear?: boolean;
 
     className?: string;
     children?: React.ReactText;
@@ -43,15 +45,22 @@ const Button: React.FC<ButtonProps> = ({
     weight = 'bold',
     icon,
     iconHover,
+    iconSize,
+    clear,
     className,
     children,
 }) => {
     useStyles(s);
 
     return (
-        <button className={cnButton({ shape, color, size, weight }, [className])} type="button">
+        <button className={cnButton(clear ? null : { shape, color, size, weight }, [className])} type="button">
             {icon ? (
-                <Icon className={cnButton('Icon', { withHover: Boolean(iconHover) })} type={icon} hover={iconHover} />
+                <Icon
+                    className={cnButton('Icon', { withHover: Boolean(iconHover) })}
+                    type={icon}
+                    hover={iconHover}
+                    size={iconSize}
+                />
             ) : (
                 <span className={cnButton('Text')}>{children}</span>
             )}

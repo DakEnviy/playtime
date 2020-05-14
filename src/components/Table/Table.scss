@@ -1,18 +1,13 @@
 @import '../../assets/styles/vars';
+@import '../../assets/styles/mixins';
 
 .Table {
-    border-radius: 5px;
     padding: 20px 10px 15px;
-    background-color: lighten($color-bg, 5%);
+    background-color: lighten($color-bg, 3%);
 
     &-Content {
         width: 100%;
-        overflow: auto;
-        -ms-overflow-style: none;
-        //noinspection CssUnknownProperty
-        scrollbar-width: none;
-
-        &::-webkit-scrollbar { display: none; }
+        height: 100%;
     }
 
     &-Head {
@@ -32,11 +27,11 @@
         display: inline-block;
         min-width: 100%;
         border-radius: 5px;
-        padding: 0 5px;
+        padding: 5px;
         white-space: nowrap;
 
-        &:nth-child(odd) { background-color: lighten($color-bg, 10%); }
-        &:nth-child(even) { background-color: lighten($color-bg, 8%); }
+        &:nth-child(odd) { background-color: lighten($color-bg, 8%); }
+        &:nth-child(even) { background-color: lighten($color-bg, 6%); }
 
         &::after {
             content: '';
