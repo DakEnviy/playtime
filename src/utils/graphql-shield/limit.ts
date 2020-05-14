@@ -33,10 +33,13 @@ const limit = (
     secDuration: number,
     points: number = 1,
     error: (key: string, ttl: number) => Error = () => new UserError('FREQUENT_REQUESTS'),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    keyGetter: (ctx: any) => string = (ctx: { req: Request; user?: User }) => (ctx.user ? ctx.user.id : ctx.req.ip),
     keyPrefix: string = 'gqlsl',
 ) => {
-    return rule({ cache: 'no_cache' })(async (_0, _1, ctx: { req: Request; user?: User }) => {
-        const key = ctx.user ? ctx.user.id : ctx.req.ip;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return rule({ cache: 'no_cache' })(async (_0, _1, ctx: any) => {
+        const key = keyGetter(ctx);
         const [currentPoints, ttl] = await redis.gqlslIncr(`${keyPrefix}:${key}`, 1, secDuration);
 
         if (currentPoints > points) {
