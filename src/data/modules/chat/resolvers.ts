@@ -23,6 +23,7 @@ import { isAdminOrModerator, isAuth } from '../rules';
 import { checkSendMessageArgs } from './rules';
 import { UserError } from '../../../utils/graphql-shield/errors';
 import limit from '../../../utils/graphql-shield/limit';
+import getBanEndTime from '../../../utils/chatWarns';
 
 export type OriginMessageParent = MessageBackend;
 
@@ -80,10 +81,14 @@ export const resolvers: ChatResolvers = {
     },
     Mutation: {
         sendMessage: async (_0, { input: { message } }, { user }) => {
-            // Проверка на chatWarns добавлена для оптимизации, чтобы не делать лишний запрос к БД
-            const isChatBanned = user!.chatWarns > 0 && (await repositories.users.isChatBanned(user!.id));
-            if (isChatBanned) {
-                throw new UserError('CHAT_BANNED');
+            // Проверка на бан чата
+            if (user!.chatWarns > 0) {
+                const now = Date.now();
+                const banEndTime = getBanEndTime(user!.chatWarnsUpdatedAt, user!.chatWarns);
+
+                if (now < banEndTime) {
+                    throw new UserError('CHAT_BANNED');
+                }
             }
 
             const sentMessage = await repositories.messages.addMessage(user!.id, message);
