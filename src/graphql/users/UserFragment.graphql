@@ -3,5 +3,4 @@ fragment User on User {
     username
     avatar
     role
-    isChatMute
 }

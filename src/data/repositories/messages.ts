@@ -1,5 +1,8 @@
+import { Op } from 'sequelize';
+
 import BaseRepository from './base';
 import { Message } from '../models/Message';
+import { UserError } from '../../utils/graphql-shield/errors';
 
 class MessagesRepository extends BaseRepository {
     async getMessageById(messageId: string): Promise<Message | null> {
@@ -10,7 +13,7 @@ class MessagesRepository extends BaseRepository {
         const message = await this.getMessageById(messageId);
 
         if (!message) {
-            throw new Error('NO_MESSAGE');
+            throw new UserError('NO_MESSAGE');
         }
 
         return message;
@@ -39,18 +42,16 @@ class MessagesRepository extends BaseRepository {
         const message: Message | null = await this.db.Message.findByPk(messageId);
 
         if (!message) {
-            throw new Error('NO_MESSAGE');
+            throw new UserError('NO_MESSAGE');
         }
 
         return message.destroy();
     }
 
     async deleteMessagesBySender(senderId: string): Promise<void> {
-        await this.db.Message.destroy({ where: { senderId } });
-    }
+        const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
 
-    async restoreMessagesBySender(senderId: string): Promise<void> {
-        await this.db.Message.restore({ where: { senderId } });
+        await this.db.Message.destroy({ where: { senderId, createdAt: { [Op.gte]: twoDaysAgo } } });
     }
 }
 

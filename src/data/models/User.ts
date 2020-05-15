@@ -15,7 +15,8 @@ export interface User extends Model {
     readonly vkId: string;
     readonly role: UserRole;
     readonly avatar: string;
-    readonly isChatMute: boolean;
+    readonly chatWarns: number;
+    readonly chatWarnsUpdatedAt: Date | null;
     readonly createdAt: Date;
     readonly updatedAt: Date;
 
@@ -56,10 +57,14 @@ export const initUser = (sequelize: Sequelize): UserStatic => {
             allowNull: false,
         },
 
-        isChatMute: {
-            type: DataTypes.BOOLEAN,
+        chatWarns: {
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
-            defaultValue: false,
+            defaultValue: 0,
+        },
+
+        chatWarnsUpdatedAt: {
+            type: DataTypes.DATE,
         },
     }) as UserStatic;
 
