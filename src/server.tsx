@@ -1,4 +1,3 @@
-import 'reflect-metadata'; // To enable reflection
 import path from 'path';
 import { createServer } from 'http';
 import express, { NextFunction, Request, Response } from 'express';
