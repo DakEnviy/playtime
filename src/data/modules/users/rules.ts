@@ -4,12 +4,12 @@ import { isNaN } from 'lodash';
 export const checkUserArgs = inputRule()(yup =>
     yup.object({
         userId: yup
-            .mixed<string>()
+            .string()
+            .required('INVALID_USER_ID_REQUIRED')
             .test({
                 test: value => !isNaN(+value),
                 message: 'INVALID_USER_ID_TEST',
-            })
-            .required('INVALID_USER_ID_REQUIRED'),
+            }),
     }),
 );
 
