@@ -3,12 +3,14 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Chat.scss';
 import { cn } from '../../utils/bem-css-module';
+import useMessagesQuery from '../../hooks/graphql/useMessagesQuery';
+import useMeQuery from '../../hooks/graphql/useMeQuery';
 import ChatMessage from './Message/ChatMessage';
 import Panel from '../Panel/Panel';
 import Text from '../Text/Text';
 import Scrollable, { ScrollableRef } from '../Scrollable/Scrollable';
 import ChatMessageForm from '../forms/ChatMessageForm';
-import useMessagesQuery from '../../graphql/hooks/useMessagesQuery';
+import useDeleteMessageMutation from '../../hooks/graphql/useDeleteMessageMutation';
 
 export interface ChatProps {
     className?: string;
@@ -117,11 +119,20 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
         }
     }, []);
 
-    const { loading, messages } = useMessagesQuery(onMessageSendOther);
-
     useEffect(() => {
         scrollTo(-0, 700);
     }, []);
+
+    const { loading, messages } = useMessagesQuery(onMessageSendOther);
+    const { me } = useMeQuery();
+
+    const deleteMessage = useDeleteMessageMutation();
+    const onDeleteMessage = useCallback(
+        async (messageId: string) => {
+            await deleteMessage({ messageId });
+        },
+        [deleteMessage],
+    );
 
     return (
         <Panel
@@ -136,7 +147,14 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
                 <div className={cnChat('MessagesItems')}>
                     {loading || !messages
                         ? 'Loading...'
-                        : messages.map(message => <ChatMessage {...message} key={message.id} />)}
+                        : messages.map(message => (
+                              <ChatMessage
+                                  {...message}
+                                  showControls={me?.role === 'Admin'}
+                                  key={message.id}
+                                  onDeleteMessage={onDeleteMessage}
+                              />
+                          ))}
                 </div>
             </Scrollable>
             <ChatMessageForm onMutate={onMessageSend} />

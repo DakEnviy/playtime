@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './ChatMessage.scss';
@@ -8,10 +8,14 @@ import { matchEmojiAlt } from '../../../utils/message';
 import Text from '../../Text/Text';
 import TextBlock from '../../TextBlock/TextBlock';
 import Emoji, { EmojiProps } from '../../Emoji/Emoji';
+import Button from '../../Button/Button';
 
 type StringOrElement = string | React.ReactElement;
 
-export interface ChatMessageProps extends MessageFragment {}
+export interface ChatMessageProps extends MessageFragment {
+    showControls?: boolean;
+    onDeleteMessage: (messageId: string) => void;
+}
 
 const emojify = (elements: StringOrElement[]): StringOrElement[] => {
     let matchedIndex: number | undefined;
@@ -99,13 +103,14 @@ const transformDate = (dateString: string): string => {
 
 const cnChatMessage = cn(s, 'ChatMessage');
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ sender, message, createdAt }) => {
+const ChatMessage: React.FC<ChatMessageProps> = ({ id, sender, message, createdAt, showControls, onDeleteMessage }) => {
     useStyles(s);
 
     const transformedMessage = useMemo(() => transformMessage(message), [message]);
+    const onClick = useCallback(() => onDeleteMessage(id), [id, onDeleteMessage]);
 
     return (
-        <div className={cnChatMessage()}>
+        <div className={cnChatMessage({ showControls })}>
             <img className={cnChatMessage('Avatar')} src={sender.avatar} alt={sender.username} />
             <div className={cnChatMessage('Main')}>
                 <div className={cnChatMessage('Top')}>
@@ -116,6 +121,12 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ sender, message, createdAt })
                 </div>
                 <TextBlock weight="semiBold">{transformedMessage}</TextBlock>
             </div>
+            {showControls && (
+                <div className={cnChatMessage('Controls')}>
+                    <Button className={cnChatMessage('ControlsButton')} icon="plusWhite" clear onClick={onClick} />
+                    <Button className={cnChatMessage('ControlsButton')} icon="plusWhite" clear />
+                </div>
+            )}
         </div>
     );
 };

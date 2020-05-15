@@ -4,7 +4,6 @@ fragment Message on Message {
         id
         username
         avatar
-        role
     }
     message
     createdAt

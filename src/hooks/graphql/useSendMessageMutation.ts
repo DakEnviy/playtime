@@ -1,3 +1,4 @@
+import { ExecutionResult } from 'apollo-link';
 import { useMutation } from '@apollo/react-hooks';
 
 import {
@@ -9,7 +10,11 @@ import {
     SendMessageMutationVariables,
 } from '../../__generated__/graphql';
 
-const useSendMessageMutation = () => {
+export interface UseSendMessageMutationResult {
+    (input: SendMessageInput): Promise<ExecutionResult<SendMessageMutation>>;
+}
+
+const useSendMessageMutation = (): UseSendMessageMutationResult => {
     const [sendMessage] = useMutation<SendMessageMutation, SendMessageMutationVariables>(SendMessageDocument, {
         update: (proxy, { data: mutationData }) => {
             if (!mutationData) return;
@@ -30,7 +35,7 @@ const useSendMessageMutation = () => {
         },
     });
 
-    return (input: SendMessageInput) => sendMessage({ variables: { input } });
+    return input => sendMessage({ variables: { input } });
 };
 
 export default useSendMessageMutation;

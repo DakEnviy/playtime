@@ -1,10 +1,12 @@
 @import '../../../assets/styles/vars';
 
 .ChatMessage {
+    position: relative;
     display: flex;
     padding: 15px 15px 15px 10px;
     border-radius: 3px 10px 10px 10px;
     background-color: lighten($color-bg, 9%);
+    overflow: hidden;
 
     &-Avatar {
         width: 25px;
@@ -30,7 +32,38 @@
         text-overflow: ellipsis;
     }
 
-    & &-Time { margin-left: 10px; }
+    & &-Time {
+        margin-left: 10px;
+        transition: transform 0.3s $nice-ease;
+    }
+
+    &-Controls {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        border-radius: 5px;
+        padding: 2px 6px 4px;
+        background-color: lighten($color-bg, 6%);
+        transform: translateY(-100px);
+        transition: transform 0.3s $nice-ease;
+    }
+
+    & &-ControlsButton {
+        .Button-Icon {
+            width: 10px;
+            height: 10px;
+        }
+
+        & + .ChatMessage-ControlsButton { margin-left: 3px; }
+    }
+
+    &_showControls {
+        &:hover {
+            .ChatMessage-Time { transform: translateX(100px); }
+
+            .ChatMessage-Controls { transform: translateY(0); }
+        }
+    }
 
     & + & { margin-top: 15px; }
 }

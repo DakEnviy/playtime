@@ -3,7 +3,7 @@ import { Form } from 'react-final-form';
 import { FormApi } from 'final-form';
 
 import MessageField from '../fields/MessageField';
-import useSendMessageMutation from '../../graphql/hooks/useSendMessageMutation';
+import useSendMessageMutation from '../../hooks/graphql/useSendMessageMutation';
 
 export interface ChatMessageFormValues {
     message: string;
