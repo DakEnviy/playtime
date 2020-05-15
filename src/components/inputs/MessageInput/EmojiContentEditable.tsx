@@ -1,6 +1,5 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
-import { some } from 'lodash';
 
 import { EmojiSize } from '../../../assets/emojis';
 import blankImg from '../../../assets/emojis/blank.gif';
@@ -31,6 +30,15 @@ class EmojiContentEditable extends React.Component<EmojiContentEditableProps> {
 
     shouldComponentUpdate(nextProps: Readonly<EmojiContentEditableProps>) {
         return nextProps.content !== this.currentContent;
+    }
+
+    componentDidUpdate() {
+        const { content, emojiSize } = this.props;
+        const { current: elem } = this.ref;
+
+        if (content !== this.currentContent && elem) {
+            elem.innerHTML = textToHtml(content, emojiSize!);
+        }
     }
 
     onContentChange = () => {
@@ -69,6 +77,19 @@ class EmojiContentEditable extends React.Component<EmojiContentEditableProps> {
 
             elem.replaceChild(document.createTextNode(child.textContent ?? ''), child);
         });
+
+        let prevBrCount = 0;
+
+        Array.prototype.slice.call(elem.childNodes).forEach((child: ChildNode) => {
+            if (child.nodeType === Node.ELEMENT_NODE && (child as Element).tagName === 'BR') {
+                if (!child.previousSibling || (child.nextSibling && prevBrCount >= 2)) {
+                    child.remove();
+                }
+                ++prevBrCount;
+            } else {
+                prevBrCount = 0;
+            }
+        });
     }
 
     emojify(lastEmojiImg: HTMLImageElement | null = null): HTMLImageElement | null {
@@ -81,7 +102,7 @@ class EmojiContentEditable extends React.Component<EmojiContentEditableProps> {
         let matchedEmojiAlt: [string, number, number] | undefined;
 
         // Находим первый эмодзи и ноду, в которой он находится
-        some(elem.childNodes, node => {
+        Array.prototype.some.call(elem.childNodes, (node: ChildNode) => {
             if (node.nodeType !== Node.TEXT_NODE || !node.textContent) return false;
 
             const match = matchEmojiAlt(node.textContent);
@@ -123,14 +144,7 @@ class EmojiContentEditable extends React.Component<EmojiContentEditableProps> {
         const { content, emojiSize, onContentChange, innerRef, ...restProps } = this.props;
 
         return (
-            <div
-                {...restProps}
-                contentEditable
-                dangerouslySetInnerHTML={{ __html: textToHtml(content, emojiSize!) }}
-                onInput={this.onContentChange}
-                onBlur={this.onBlur}
-                ref={this.ref}
-            />
+            <div {...restProps} contentEditable onInput={this.onContentChange} onBlur={this.onBlur} ref={this.ref} />
         );
     }
 }
