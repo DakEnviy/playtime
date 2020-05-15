@@ -6,7 +6,7 @@ import MessageInput, { MessageInputProps } from '../inputs/MessageInput/MessageI
 export interface MessageFieldProps {
     name: string;
     emojiSize?: MessageInputProps['emojiSize'];
-    onSubmit?: () => void;
+    onSubmit?: MessageInputProps['onSubmit'];
 }
 
 const MessageField: React.FC<MessageFieldProps> = ({ name, emojiSize, onSubmit }) => {

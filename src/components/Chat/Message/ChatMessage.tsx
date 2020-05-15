@@ -3,6 +3,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './ChatMessage.scss';
 import { cn } from '../../../utils/bem-css-module';
+import { MessageFragment } from '../../../__generated__/graphql';
 import { matchEmojiAlt } from '../../../utils/message';
 import Text from '../../Text/Text';
 import TextBlock from '../../TextBlock/TextBlock';
@@ -10,12 +11,7 @@ import Emoji, { EmojiProps } from '../../Emoji/Emoji';
 
 type StringOrElement = string | React.ReactElement;
 
-export interface ChatMessageProps {
-    id: string;
-    user: { id: string; username: string; avatar: string };
-    message: string;
-    time: string;
-}
+export interface ChatMessageProps extends MessageFragment {}
 
 const emojify = (elements: StringOrElement[]): StringOrElement[] => {
     let matchedIndex: number | undefined;
@@ -92,24 +88,31 @@ const transformMessage = (message: string): React.ReactNode => {
     return React.createElement(React.Fragment, null, ...transformNewLines(emojify([message])).filter(Boolean));
 };
 
+const addLeadingZeros = (number: number) => {
+    return `0${number}`.slice(-2);
+};
+
+const transformDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return `${addLeadingZeros(date.getHours())}:${addLeadingZeros(date.getMinutes())}`;
+};
+
 const cnChatMessage = cn(s, 'ChatMessage');
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ user, message, time }) => {
+const ChatMessage: React.FC<ChatMessageProps> = ({ sender, message, createdAt }) => {
     useStyles(s);
 
     const transformedMessage = useMemo(() => transformMessage(message), [message]);
 
     return (
         <div className={cnChatMessage()}>
-            <img className={cnChatMessage('Avatar')} src={user.avatar} alt={user.username} />
+            <img className={cnChatMessage('Avatar')} src={sender.avatar} alt={sender.username} />
             <div className={cnChatMessage('Main')}>
                 <div className={cnChatMessage('Top')}>
-                    <Text className={cnChatMessage('Username')} color="white" upper>
-                        {user.username}
+                    <Text className={cnChatMessage('Username')} color="white">
+                        {sender.username}
                     </Text>
-                    <Text className={cnChatMessage('Time')} upper>
-                        {time}
-                    </Text>
+                    <Text className={cnChatMessage('Time')}>{transformDate(createdAt)}</Text>
                 </div>
                 <TextBlock weight="semiBold">{transformedMessage}</TextBlock>
             </div>

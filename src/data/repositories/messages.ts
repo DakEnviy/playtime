@@ -17,13 +17,15 @@ class MessagesRepository extends BaseRepository {
     }
 
     async getMessages(): Promise<Message[]> {
-        return this.db.Message.findAll({
+        const messages: Message[] = await this.db.Message.findAll({
             order: [
                 ['createdAt', 'DESC'],
                 ['id', 'DESC'],
             ],
             limit: 30,
         });
+
+        return messages.reverse();
     }
 
     async addMessage(senderId: string, message: string): Promise<Message> {

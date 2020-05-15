@@ -33,7 +33,9 @@ export const htmlToText = (html: string): string => {
         .replace(/&nbsp;/g, ' ')
         .replace(/&amp;/g, '&')
         .replace(/&gt;/g, '>')
-        .replace(/&lt;/g, '<');
+        .replace(/&lt;/g, '<')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
 };
 
 export const matchEmojiAlt = (text: string): [string, number, number] | null => {

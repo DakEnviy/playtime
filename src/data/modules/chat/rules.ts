@@ -1,6 +1,6 @@
 import { inputRule } from 'graphql-shield';
 
-const rMessage = /^[a-zA-Zа-яА-Я0-9_./%!?@#$&*()[\]<>+=\-:;^,"'\s]{1,255}$/;
+const rMessage = /^[a-zA-Zа-яА-ЯёЁ0-9_./%!?@#$&*()[\]<>+=\-:;^,"'\s]{1,255}$/;
 
 export const checkSendMessageArgs = inputRule()(yup =>
     yup.object({
