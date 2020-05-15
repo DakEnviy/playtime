@@ -128,12 +128,12 @@ class EmojiContentEditable extends React.Component<EmojiContentEditableProps> {
         emojiImg.src = blankImg;
         emojiImg.alt = emojiAlt;
 
-        const beforeText = document.createTextNode(textContent!.slice(0, start));
-        const afterText = document.createTextNode(textContent!.slice(end));
+        const beforeText = textContent!.slice(0, start);
+        const afterText = textContent!.slice(end);
 
         // Вставляем ноду картинки эмодзи в инпут
-        elem.insertBefore(beforeText, matchedNode);
-        elem.insertBefore(afterText, nextSibling);
+        if (beforeText) elem.insertBefore(document.createTextNode(beforeText), matchedNode);
+        if (afterText) elem.insertBefore(document.createTextNode(afterText), nextSibling);
         elem.replaceChild(emojiImg, matchedNode);
 
         return this.emojify(emojiImg);
