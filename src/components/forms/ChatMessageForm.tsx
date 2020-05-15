@@ -18,6 +18,8 @@ const ChatMessageForm: React.FC<ChatMessageFormProps> = ({ onMutate }) => {
 
     const onSubmit = useCallback(
         async (values: ChatMessageFormValues, form: FormApi<ChatMessageFormValues>) => {
+            if (!values.message) return;
+
             await sendMessage(values);
 
             if (onMutate) {

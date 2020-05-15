@@ -1,5 +1,5 @@
 import { ModuleContext } from '@graphql-modules/core';
-import { and, IRules } from 'graphql-shield';
+import { chain, IRules } from 'graphql-shield';
 
 import { ChatContext } from './index';
 import { Resolver, ResolverOptions, Resolvers, TypeResolvers } from '../../../interfaces/graphql';
@@ -66,7 +66,7 @@ type ChatResolvers = Resolvers<
 
 export const rules: IRules = {
     Mutation: {
-        sendMessage: and(isAuth, checkSendMessageArgs, limit(15)),
+        sendMessage: chain(isAuth, checkSendMessageArgs, limit(15)),
         deleteMessage: isAdminOrModerator,
         muteChat: isAdminOrModerator,
     },
