@@ -47,7 +47,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({ items }) => {
                             <TextIcon
                                 className={cnHistoryTable('BetsAmount')}
                                 text={betsAmount}
-                                icon="diamondWhite"
+                                icon="diamond"
                                 color="white"
                                 upper
                             />
@@ -77,7 +77,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({ items }) => {
                 maxWidth={200}
                 columnKey="fund"
             >
-                {({ fund }) => <TextIcon text={fund} icon="diamondWhite" color="white" upper />}
+                {({ fund }) => <TextIcon text={fund} icon="diamond" color="white" upper />}
             </Column>
             <Column<HistoryItem>
                 label={

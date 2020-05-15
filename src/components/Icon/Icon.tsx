@@ -21,7 +21,6 @@ type IconType =
     | 'playRedCut'
     | 'guard'
     | 'diamond'
-    | 'diamondWhite'
     | 'sword'
     | 'dice'
     | 'automat'

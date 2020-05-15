@@ -100,7 +100,7 @@ const LiveFeedTable: React.FC<LiveFeedTableProps> = ({ items }) => {
                 maxWidth={180}
                 columnKey="fund"
             >
-                {({ fund }) => <TextIcon text={fund} icon="diamondWhite" font="Rubik" color="white" upper />}
+                {({ fund }) => <TextIcon text={fund} icon="diamond" font="Rubik" color="white" upper />}
             </Column>
             <Column<LiveFeedItem>
                 label={

@@ -55,7 +55,7 @@ const BetsTable: React.FC<BetsTableProps> = ({ items }) => {
                 maxWidth={110}
                 columnKey="amount"
             >
-                {({ amount }) => <TextIcon text={amount} icon="diamondWhite" color="white" upper />}
+                {({ amount }) => <TextIcon text={amount} icon="diamond" color="white" upper />}
             </Column>
             <Column<BetsItem>
                 label={
