@@ -23,7 +23,7 @@
     &-Top {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 12px;
+        margin-bottom: 7px;
     }
 
     & &-Username {
@@ -39,11 +39,11 @@
 
     &-Controls {
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 8px;
+        right: 10px;
         border-radius: 5px;
-        padding: 2px 6px 4px;
-        background-color: lighten($color-bg, 6%);
+        padding: 3px 7px 5px;
+        background-color: lighten($color-bg, 7%);
         transform: translateY(-100px);
         transition: transform 0.3s $nice-ease;
     }
@@ -54,7 +54,7 @@
             height: 12px;
         }
 
-        & + .ChatMessage-ControlsButton { margin-left: 5px; }
+        & + .ChatMessage-ControlsButton { margin-left: 7px; }
     }
 
     &_showControls {
