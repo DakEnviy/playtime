@@ -123,8 +123,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ id, sender, message, createdA
             </div>
             {showControls && (
                 <div className={cnChatMessage('Controls')}>
-                    <Button className={cnChatMessage('ControlsButton')} icon="plusWhite" clear onClick={onClick} />
-                    <Button className={cnChatMessage('ControlsButton')} icon="plusWhite" clear />
+                    <Button className={cnChatMessage('ControlsButton')} icon="delete" clear onClick={onClick} />
+                    <Button className={cnChatMessage('ControlsButton')} icon="ban" clear />
                 </div>
             )}
         </div>
