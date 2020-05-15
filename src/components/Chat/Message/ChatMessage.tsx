@@ -14,7 +14,8 @@ type StringOrElement = string | React.ReactElement;
 
 export interface ChatMessageProps extends MessageFragment {
     showControls?: boolean;
-    onDeleteMessage: (messageId: string) => void;
+    deleteMessage: (messageId: string) => void;
+    warnChat: (userId: string) => void;
 }
 
 const emojify = (elements: StringOrElement[]): StringOrElement[] => {
@@ -103,11 +104,20 @@ const transformDate = (dateString: string): string => {
 
 const cnChatMessage = cn(s, 'ChatMessage');
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ id, sender, message, createdAt, showControls, onDeleteMessage }) => {
+const ChatMessage: React.FC<ChatMessageProps> = ({
+    id,
+    sender,
+    message,
+    createdAt,
+    showControls,
+    deleteMessage,
+    warnChat,
+}) => {
     useStyles(s);
 
     const transformedMessage = useMemo(() => transformMessage(message), [message]);
-    const onClick = useCallback(() => onDeleteMessage(id), [id, onDeleteMessage]);
+    const onClickDeleteMessage = useCallback(() => deleteMessage(id), [id, deleteMessage]);
+    const onClickWarnChat = useCallback(() => warnChat(sender.id), [sender.id, warnChat]);
 
     return (
         <div className={cnChatMessage({ showControls })}>
@@ -123,8 +133,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ id, sender, message, createdA
             </div>
             {showControls && (
                 <div className={cnChatMessage('Controls')}>
-                    <Button className={cnChatMessage('ControlsButton')} icon="delete" clear onClick={onClick} />
-                    <Button className={cnChatMessage('ControlsButton')} icon="ban" clear />
+                    <Button
+                        className={cnChatMessage('ControlsButton')}
+                        icon="delete"
+                        clear
+                        onClick={onClickDeleteMessage}
+                    />
+                    <Button className={cnChatMessage('ControlsButton')} icon="ban" clear onClick={onClickWarnChat} />
                 </div>
             )}
         </div>

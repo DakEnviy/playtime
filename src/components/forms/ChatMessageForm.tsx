@@ -14,13 +14,13 @@ export interface ChatMessageFormProps {
 }
 
 const ChatMessageForm: React.FC<ChatMessageFormProps> = ({ onMutate }) => {
-    const sendMessage = useSendMessageMutation();
+    const sendMessageMutation = useSendMessageMutation();
 
     const onSubmit = useCallback(
         async (values: ChatMessageFormValues, form: FormApi<ChatMessageFormValues>) => {
             if (!values.message) return;
 
-            await sendMessage(values);
+            await sendMessageMutation(values);
 
             if (onMutate) {
                 onMutate();
@@ -28,7 +28,7 @@ const ChatMessageForm: React.FC<ChatMessageFormProps> = ({ onMutate }) => {
 
             setTimeout(() => form.reset(), 0);
         },
-        [sendMessage, onMutate],
+        [sendMessageMutation, onMutate],
     );
 
     return (

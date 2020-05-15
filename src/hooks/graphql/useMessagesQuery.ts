@@ -3,6 +3,8 @@ import { useQuery } from '@apollo/react-hooks';
 
 import {
     DeletedMessageDocument,
+    DeletedMessagesBySenderDocument,
+    DeletedMessagesBySenderSubscription,
     DeletedMessageSubscription,
     MessagesDocument,
     MessagesQuery,
@@ -49,11 +51,23 @@ const useMessagesQuery = (
                 };
             },
         });
+
+        subscribeToMore<DeletedMessagesBySenderSubscription>({
+            document: DeletedMessagesBySenderDocument,
+            updateQuery: (prev, { subscriptionData }) => {
+                const { deletedMessagesBySender } = subscriptionData.data;
+
+                return {
+                    ...prev,
+                    messages: prev.messages.filter(message => message.sender.id !== deletedMessagesBySender.senderId),
+                };
+            },
+        });
     }, [subscribeToMore, onSentMessage]);
 
     return {
         loading,
-        messages: data && data.messages.slice(-100),
+        messages: data && data.messages.slice(-60),
     };
 };
 

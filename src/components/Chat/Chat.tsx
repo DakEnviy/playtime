@@ -11,6 +11,7 @@ import Text from '../Text/Text';
 import Scrollable, { ScrollableRef } from '../Scrollable/Scrollable';
 import ChatMessageForm from '../forms/ChatMessageForm';
 import useDeleteMessageMutation from '../../hooks/graphql/useDeleteMessageMutation';
+import useWarnChatMutation from '../../hooks/graphql/useWarnChatMutation';
 
 export interface ChatProps {
     className?: string;
@@ -126,12 +127,20 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
     const { loading, messages } = useMessagesQuery(onMessageSendOther);
     const { me } = useMeQuery();
 
-    const deleteMessage = useDeleteMessageMutation();
-    const onDeleteMessage = useCallback(
+    const deleteMessageMutation = useDeleteMessageMutation();
+    const deleteMessage = useCallback(
         async (messageId: string) => {
-            await deleteMessage({ messageId });
+            await deleteMessageMutation({ messageId });
         },
-        [deleteMessage],
+        [deleteMessageMutation],
+    );
+
+    const warnChatMutation = useWarnChatMutation();
+    const warnChat = useCallback(
+        async (userId: string) => {
+            await warnChatMutation({ userId });
+        },
+        [warnChatMutation],
     );
 
     return (
@@ -152,7 +161,8 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
                                   {...message}
                                   showControls={me?.role === 'Admin'}
                                   key={message.id}
-                                  onDeleteMessage={onDeleteMessage}
+                                  deleteMessage={deleteMessage}
+                                  warnChat={warnChat}
                               />
                           ))}
                 </div>
