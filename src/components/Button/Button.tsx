@@ -20,6 +20,8 @@ export interface ButtonProps {
     iconSize?: IconProps['size'];
     clear?: boolean;
 
+    onClick?: () => void;
+
     className?: string;
     children?: React.ReactText;
 }
@@ -47,13 +49,18 @@ const Button: React.FC<ButtonProps> = ({
     iconHover,
     iconSize,
     clear,
+    onClick,
     className,
     children,
 }) => {
     useStyles(s);
 
     return (
-        <button className={cnButton(clear ? null : { shape, color, size, weight }, [className])} type="button">
+        <button
+            className={cnButton(clear ? null : { shape, color, size, weight }, [className])}
+            type="button"
+            onClick={onClick}
+        >
             {icon ? (
                 <Icon
                     className={cnButton('Icon', { withHover: Boolean(iconHover) })}
