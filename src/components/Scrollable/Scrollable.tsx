@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useImperativeHandle, useRef, useState } from 'react';
 import useStyles from 'isomorphic-style-loader/useStyles';
+import { animateScroll } from 'react-scroll';
 
 import s from './Scrollable.scss';
 import { cn } from '../../utils/bem-css-module';
@@ -14,9 +15,16 @@ export interface ScrollableProps {
     children: React.ReactNode;
 }
 
+export interface ScrollableRef {
+    getScrollHeight: () => number;
+    getScrollTop: () => number;
+    getClientHeight: () => number;
+    scrollTo: (y: number, duration?: number, easingFunction?: string) => void;
+}
+
 const cnScrollable = cn(s, 'Scrollable');
 
-const Scrollable: React.FC<ScrollableProps> = ({ disablePadding, className, children }) => {
+const Scrollable = React.forwardRef<ScrollableRef, ScrollableProps>(({ disablePadding, className, children }, ref) => {
     useStyles(s);
 
     const viewportRef = useRef<HTMLDivElement | null>(null);
@@ -92,6 +100,33 @@ const Scrollable: React.FC<ScrollableProps> = ({ disablePadding, className, chil
         updateState(viewportRef.current);
     }, [children]);
 
+    useImperativeHandle(ref, () => ({
+        getScrollHeight: () => {
+            return viewportRef.current ? viewportRef.current.scrollHeight : 0;
+        },
+        getScrollTop: () => {
+            return viewportRef.current ? viewportRef.current.scrollTop : 0;
+        },
+        getClientHeight: () => {
+            return viewportRef.current ? viewportRef.current.clientHeight : 0;
+        },
+        scrollTo: (y, duration, easingFunction) => {
+            if (!viewportRef.current) return;
+
+            const options = {
+                container: viewportRef.current,
+                duration,
+                smooth: easingFunction,
+            };
+
+            if (Object.is(y, -0)) {
+                animateScroll.scrollToBottom(options);
+            } else {
+                animateScroll.scrollTo(y, options);
+            }
+        },
+    }));
+
     return (
         <div className={cnScrollable({ isVertical, isHorizontal }, [className])}>
             <div className={cnScrollable('Viewport', { disablePadding })} ref={viewportRef} onScroll={onScroll}>
@@ -115,6 +150,6 @@ const Scrollable: React.FC<ScrollableProps> = ({ disablePadding, className, chil
             </div>
         </div>
     );
-};
+});
 
 export default Scrollable;
