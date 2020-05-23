@@ -8,6 +8,7 @@ import SafeTable from '../../../../components/Table/containers/SafeTable';
 import Text from '../../../../components/Text/Text';
 import Icon, { IconProps } from '../../../../components/Icon/Icon';
 import ChanceBadge from '../../../../components/Badge/containers/ChanceBadge';
+import TextIcon from '../../../../components/TextIcon/TextIcon';
 
 type LiveFeedItemGame = 'battle' | 'dice' | 'knb';
 
@@ -99,14 +100,7 @@ const LiveFeedTable: React.FC<LiveFeedTableProps> = ({ items }) => {
                 maxWidth={180}
                 columnKey="fund"
             >
-                {({ fund }) => (
-                    <>
-                        <Text className={cnLiveFeedTable('FundAmount')} font="Rubik" color="white" upper>
-                            {fund}
-                        </Text>
-                        <Icon className={cnLiveFeedTable('FundIcon')} type="diamondWhite" />
-                    </>
-                )}
+                {({ fund }) => <TextIcon text={fund} icon="diamond" font="Rubik" color="white" upper />}
             </Column>
             <Column<LiveFeedItem>
                 label={

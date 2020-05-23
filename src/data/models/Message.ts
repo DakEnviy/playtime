@@ -38,7 +38,7 @@ export const initMessage = (sequelize: Sequelize): MessageStatic => {
             },
 
             message: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
             },
         },

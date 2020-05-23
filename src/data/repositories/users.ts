@@ -2,6 +2,7 @@ import { Profile as VkProfile } from 'passport-vkontakte';
 
 import BaseRepository from './base';
 import { User } from '../models/User';
+import { UserError } from '../../utils/graphql-shield/errors';
 
 class UsersRepository extends BaseRepository {
     async authVk(profile: VkProfile): Promise<User> {
@@ -33,16 +34,20 @@ class UsersRepository extends BaseRepository {
         const user = await this.getUserById(userId);
 
         if (!user) {
-            throw new Error('NO_USER');
+            throw new UserError('NO_USER');
         }
 
         return user;
     }
 
-    async muteChat(userId: string, isChatMute: boolean): Promise<User> {
+    async warnChat(userId: string): Promise<User> {
+        const now = Date.now();
         const user = await this.getUserByIdStrict(userId);
 
-        return user.update({ isChatMute });
+        return user.update({
+            chatWarns: Math.min(user.chatWarns + 1, 5),
+            chatWarnsUpdatedAt: new Date(now),
+        });
     }
 }
 

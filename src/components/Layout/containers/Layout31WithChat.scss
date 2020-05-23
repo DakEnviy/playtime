@@ -1,0 +1,22 @@
+
+.Layout31WithChat {
+    &-Top {
+        display: flex;
+        height: 605px;
+        margin-bottom: 30px;
+    }
+
+    &-LeftContent {
+        width: 25.954198473%;
+    }
+
+    &-RightContent {
+        width: 38.167938931%;
+        margin: 0 65px;
+    }
+
+    &-Chat.Chat {
+        width: 25.954198473%;
+        height: 100%;
+    }
+}

@@ -3,6 +3,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Button.scss';
 import { cn } from '../../utils/bem-css-module';
+import Icon, { IconProps } from '../Icon/Icon';
 
 type ButtonShape = 'right' | 'left' | 'alphaRight';
 type ButtonColor = 'blue' | 'green' | 'gray' | 'bordered';
@@ -14,9 +15,15 @@ export interface ButtonProps {
     color?: ButtonColor;
     size?: ButtonSize;
     weight?: ButtonWeight;
+    icon?: IconProps['type'];
+    iconHover?: IconProps['hover'];
+    iconSize?: IconProps['size'];
+    clear?: boolean;
+
+    onClick?: () => void;
 
     className?: string;
-    children: React.ReactText;
+    children?: React.ReactText;
 }
 
 /** TODO: remove this
@@ -38,14 +45,32 @@ const Button: React.FC<ButtonProps> = ({
     color = 'blue',
     size = 's',
     weight = 'bold',
+    icon,
+    iconHover,
+    iconSize,
+    clear,
+    onClick,
     className,
     children,
 }) => {
     useStyles(s);
 
     return (
-        <button className={cnButton({ shape, color, size, weight }, [className])} type="button">
-            <span className={cnButton('Text')}>{children}</span>
+        <button
+            className={cnButton(clear ? null : { shape, color, size, weight }, [className])}
+            type="button"
+            onClick={onClick}
+        >
+            {icon ? (
+                <Icon
+                    className={cnButton('Icon', { withHover: Boolean(iconHover) })}
+                    type={icon}
+                    hover={iconHover}
+                    size={iconSize}
+                />
+            ) : (
+                <span className={cnButton('Text')}>{children}</span>
+            )}
         </button>
     );
 };

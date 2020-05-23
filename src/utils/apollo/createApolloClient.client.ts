@@ -10,8 +10,8 @@ const createApolloClient = () => {
     const cache = createCache().restore(window.App.cache);
 
     const link = from([
-        errorLink(),
         ...(__DEV__ ? [apolloLogger] : []),
+        errorLink(),
         requestLink({
             httpLink: httpLink(),
             wsLink: wsLink(),

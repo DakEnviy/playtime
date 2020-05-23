@@ -1,0 +1,11 @@
+
+.Layout {
+    display: flex;
+
+    &-Main { width: calc(100% - 100px); }
+
+    &-Content {
+        padding: 0 15px 50px;
+        margin-top: -75px;
+    }
+}

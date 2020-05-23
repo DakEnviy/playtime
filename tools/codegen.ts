@@ -44,7 +44,7 @@ export default async function codegen() {
             config: {
                 scalars: {
                     URL: 'string',
-                    DateTime: 'Date',
+                    DateTime: 'string',
                 },
             },
             generates: {

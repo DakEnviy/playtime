@@ -5,6 +5,7 @@ import s from './Table.scss';
 import { cn } from '../../utils/bem-css-module';
 import useColumns from '../../hooks/useColumns';
 import { ColumnElement } from './Column/Column';
+import Scrollable from '../Scrollable/Scrollable';
 
 export type GetRowKey<T> = (item: T, index: number) => React.Key;
 
@@ -52,7 +53,7 @@ const Table = <
 
     return (
         <div className={cnTable(null, [className])}>
-            <div className={cnTable('Content')}>
+            <Scrollable className={cnTable('Content')} disablePadding>
                 <div className={cnTable('Head')}>
                     <div className={cnTable('Anchor')} ref={anchor} />
                     {columns.map((column, index) => (
@@ -80,7 +81,7 @@ const Table = <
                         </div>
                     ))}
                 </div>
-            </div>
+            </Scrollable>
         </div>
     );
 };

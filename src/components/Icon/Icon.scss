@@ -1,19 +1,60 @@
 @import '../../assets/styles/mixins';
 
-$icon_types: gamepad gamepadWhite ingots ingotsWhite play playWhite user lightning rub cardsCut ingotsCut playRedCut guard diamondWhite sword dice scissors;
+$icon-types:
+    gamepad
+    gamepadWhite
+    ingots
+    ingotsWhite
+    play
+    playWhite
+    user
+    lightning
+    rub
+    cardsCut
+    ingotsCut
+    playRedCut
+    guard
+    diamond
+    sword
+    dice
+    automat
+    scissors
+    wheel
+    cards
+    cube
+    faq
+    swordWhite
+    diceWhite
+    automatWhite
+    scissorsWhite
+    wheelWhite
+    cardsWhite
+    cubeWhite
+    faqWhite
+    plusWhite
+    prize
+    bell
+    message
+    prizeWhite
+    bellWhite
+    messageWhite
+    signOut
+    smile
+    ban
+    delete;
 
 .Icon {
     position: relative;
     display: inline-block;
     vertical-align: middle;
 
-    @each $type in $icon_types {
+    @each $type in $icon-types {
         &_type_#{$type}::before {
             background-image: url('./types/#{$type}.svg');
         }
     }
 
-    @each $type in $icon_types {
+    @each $type in $icon-types {
         &_hover_#{$type} {
             &::before {
                 opacity: 1;

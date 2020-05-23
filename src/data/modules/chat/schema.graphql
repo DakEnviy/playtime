@@ -11,17 +11,13 @@ type Query {
 type Mutation {
     sendMessage(input: SendMessageInput!): Message!
     deleteMessage(input: DeleteMessageInput!): DeletedMessagePayload!
-    muteChat(input: MuteChatInput!): DeletedMessagesBySenderPayload!
+    warnChat(input: WarnChatInput!): DeletedMessagesBySenderPayload!
 }
 
 type Subscription {
     sentMessage: Message!
     deletedMessage: DeletedMessagePayload!
     deletedMessagesBySender: DeletedMessagesBySenderPayload!
-}
-
-extend type User {
-    isChatMute: Boolean!
 }
 
 type Message {
@@ -43,9 +39,8 @@ type DeletedMessagePayload {
     messageId: ID!
 }
 
-input MuteChatInput {
+input WarnChatInput {
     userId: ID!
-    isChatMute: Boolean! = true
 }
 
 type DeletedMessagesBySenderPayload {
