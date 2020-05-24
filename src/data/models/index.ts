@@ -1,6 +1,7 @@
 import { Sequelize, Model } from 'sequelize';
 import { forEach } from 'lodash';
 
+import { initSetting, SettingStatic } from './Setting';
 import { initUser, UserStatic } from './User';
 import { initMessage, MessageStatic } from './Message';
 
@@ -18,6 +19,7 @@ export interface Database {
     sequelize: Sequelize;
 
     // Models
+    Setting: SettingStatic;
     User: UserStatic;
     Message: MessageStatic;
 }
@@ -25,6 +27,7 @@ export interface Database {
 export const initDatabase = (sequelize: Sequelize): Database => {
     const database: Database = {
         sequelize,
+        Setting: initSetting(sequelize),
         User: initUser(sequelize),
         Message: initMessage(sequelize),
     };
