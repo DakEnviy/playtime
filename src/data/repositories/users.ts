@@ -40,6 +40,39 @@ class UsersRepository extends BaseRepository {
         return user;
     }
 
+    async giveMoney(userId: string, amount: number): Promise<User> {
+        return this.db.sequelize.transaction(async transaction => {
+            const user: User | null = await this.db.User.findByPk(userId, {
+                transaction,
+                lock: transaction.LOCK.UPDATE,
+            });
+
+            if (!user) {
+                throw new UserError('NO_USER');
+            }
+
+            return user.update({ money: user.money + amount }, { transaction });
+        });
+    }
+
+    async withdrawMoney(userId: string, amount: number): Promise<User> {
+        return this.db.sequelize.transaction(async transaction => {
+            const user: User | null = await this.db.User.findByPk(userId, {
+                transaction,
+                lock: transaction.LOCK.UPDATE,
+            });
+
+            if (!user) {
+                throw new UserError('NO_USER');
+            }
+            if (user.money < amount) {
+                throw new UserError('NOT_ENOUGH_MONEY');
+            }
+
+            return user.update({ money: user.money - amount }, { transaction });
+        });
+    }
+
     async warnChat(userId: string): Promise<User> {
         const now = Date.now();
         const user = await this.getUserByIdStrict(userId);

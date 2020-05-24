@@ -11,10 +11,11 @@ export enum UserRole {
 
 export interface User extends Model {
     readonly id: string;
-    readonly username: string;
     readonly vkId: string;
     readonly role: UserRole;
+    readonly username: string;
     readonly avatar: string;
+    readonly money: number;
     readonly chatWarns: number;
     readonly chatWarnsUpdatedAt: Date | null;
     readonly createdAt: Date;
@@ -55,6 +56,12 @@ export const initUser = (sequelize: Sequelize): UserStatic => {
         avatar: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+
+        money: {
+            type: DataTypes.DOUBLE(8, 2),
+            allowNull: false,
+            defaultValue: 0,
         },
 
         chatWarns: {
