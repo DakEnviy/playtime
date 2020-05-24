@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 
 import BaseRepository from './base';
 import { Message } from '../models/Message';
-import { UserError } from '../../utils/graphql-shield/errors';
+import { UserError } from '../../utils/errors';
 
 class MessagesRepository extends BaseRepository {
     async getMessageById(messageId: string): Promise<Message | null> {

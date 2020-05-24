@@ -1,6 +1,6 @@
 import { rule } from 'graphql-shield';
 
-import { UserError } from '../../utils/graphql-shield/errors';
+import { UserError } from '../../utils/errors';
 import { User, UserRole } from '../models/User';
 import { OriginUserParent } from './users/resolvers';
 

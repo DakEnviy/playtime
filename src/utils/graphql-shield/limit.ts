@@ -4,7 +4,7 @@ import Redis, { RedisOptions } from 'ioredis';
 
 import { User } from '../../data/models/User';
 import config from '../../config';
-import { UserError } from './errors';
+import { UserError } from '../errors';
 
 const redisOptions: RedisOptions = {
     host: config.redis.host,

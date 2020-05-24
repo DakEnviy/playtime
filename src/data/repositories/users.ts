@@ -2,7 +2,7 @@ import { Profile as VkProfile } from 'passport-vkontakte';
 
 import BaseRepository from './base';
 import { User } from '../models/User';
-import { UserError } from '../../utils/graphql-shield/errors';
+import { UserError } from '../../utils/errors';
 
 class UsersRepository extends BaseRepository {
     async authVk(profile: VkProfile): Promise<User> {

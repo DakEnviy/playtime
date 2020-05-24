@@ -21,7 +21,7 @@ import { repositories } from '../../database';
 import pubsub from '../../pubsub';
 import { isAdminOrModerator, isAuth } from '../rules';
 import { checkSendMessageArgs } from './rules';
-import { UserError } from '../../../utils/graphql-shield/errors';
+import { UserError } from '../../../utils/errors';
 import limit from '../../../utils/graphql-shield/limit';
 import getBanEndTime from '../../../utils/chatWarns';
 
