@@ -2,6 +2,8 @@ import { DataTypes, HasManyGetAssociationsMixin, Model, Sequelize } from 'sequel
 
 import { AssociableModelStatic } from './index';
 import { Message } from './Message';
+import { ClassicGame } from './ClassicGame';
+import { ClassicGameBet } from './ClassicGameBet';
 
 export enum UserRole {
     Default = 'Default',
@@ -22,6 +24,8 @@ export interface User extends Model {
     readonly updatedAt: Date;
 
     getMessages: HasManyGetAssociationsMixin<Message>;
+    getWonClassicGames: HasManyGetAssociationsMixin<ClassicGame>;
+    getClassicGameBets: HasManyGetAssociationsMixin<ClassicGameBet>;
 }
 
 export type UserStatic = AssociableModelStatic<User>;
@@ -77,6 +81,8 @@ export const initUser = (sequelize: Sequelize): UserStatic => {
 
     User.associate = database => {
         User.hasMany(database.Message, { as: 'messages', foreignKey: 'senderId' });
+        User.hasMany(database.ClassicGame, { as: 'wonClassicGames', foreignKey: 'winnerId' });
+        User.hasMany(database.ClassicGameBet, { as: 'classicGameBets', foreignKey: 'userId' });
     };
 
     return User;

@@ -4,6 +4,8 @@ import { forEach } from 'lodash';
 import { initSetting, SettingStatic } from './Setting';
 import { initUser, UserStatic } from './User';
 import { initMessage, MessageStatic } from './Message';
+import { initClassicGame, ClassicGameStatic } from './ClassicGame';
+import { initClassicGameBet, ClassicGameBetStatic } from './ClassicGameBet';
 
 export type ModelStatic<M extends Model> = typeof Model & { new (): M };
 
@@ -22,6 +24,8 @@ export interface Database {
     Setting: SettingStatic;
     User: UserStatic;
     Message: MessageStatic;
+    ClassicGame: ClassicGameStatic;
+    ClassicGameBet: ClassicGameBetStatic;
 }
 
 export const initDatabase = (sequelize: Sequelize): Database => {
@@ -30,6 +34,8 @@ export const initDatabase = (sequelize: Sequelize): Database => {
         Setting: initSetting(sequelize),
         User: initUser(sequelize),
         Message: initMessage(sequelize),
+        ClassicGame: initClassicGame(sequelize),
+        ClassicGameBet: initClassicGameBet(sequelize),
     };
 
     forEach(database, model => {
