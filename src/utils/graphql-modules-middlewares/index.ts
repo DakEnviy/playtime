@@ -4,6 +4,7 @@ import { GraphQLModuleOptions } from '@graphql-modules/core/dist/graphql-module'
 import { IMiddleware, IMiddlewareGenerator } from 'graphql-middleware/dist/types';
 import { GraphQLModule } from '@graphql-modules/core';
 import { applyMiddleware } from 'graphql-middleware';
+import { GraphQLSchema } from 'graphql';
 
 export type Middlewares<TSource, TContext, TArgs> = (
     | IMiddleware<TSource, TContext, TArgs>
@@ -36,7 +37,7 @@ export class GraphQLModuleWithMiddlewares<
         this.middlewares = _options?.middlewares;
     }
 
-    get schema() {
+    get schema(): GraphQLSchema {
         if (this.middlewares) {
             return applyMiddleware(super.schema, ...this.middlewares);
         }
