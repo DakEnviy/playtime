@@ -32,7 +32,7 @@ export const initUser = (sequelize: Sequelize): UserStatic => {
             primaryKey: true,
             autoIncrement: true,
             get(this: User) {
-                return this.getDataValue('id').toString();
+                return ((this.getDataValue('id') as unknown) as number).toString();
             },
         },
 
