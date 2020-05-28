@@ -1,0 +1,50 @@
+@import '../../../assets/styles/vars';
+@import '../../../assets/styles/mixins';
+
+.MiddleGame {
+    position: relative;
+    border-radius: 6px;
+    background-color: lighten($color-bg, 3%);
+
+    &-Head {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 340px;
+        height: 80px;
+        top: -5px;
+        left: 50%;
+        border-radius: 5px;
+        transform: translate(-50%, -50%);
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 290px;
+            height: 100%;
+            top: 0;
+            border-radius: 8px;
+            background: grad($grad-blue);
+            z-index: 0;
+        }
+
+        &::before {
+            transform: skewX(-17deg);
+            left: 12px;
+        }
+
+        &::after {
+            transform: skewX(17deg);
+            left: 38px;
+        }
+    }
+
+    & &-Title {
+        position: relative;
+        text-transform: uppercase;
+        z-index: 1;
+    }
+}

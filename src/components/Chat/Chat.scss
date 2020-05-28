@@ -1,5 +1,7 @@
 
 .Chat {
+    & &-PanelTitle { margin-left: 10px; }
+
     & .Panel-Content {
         display: flex;
         flex-direction: column;

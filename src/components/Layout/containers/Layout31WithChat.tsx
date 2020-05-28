@@ -5,6 +5,7 @@ import s from './Layout31WithChat.scss';
 import { cn } from '../../../utils/bem-css-module';
 import Layout from '../Layout';
 import Chat from '../../Chat/Chat';
+import MiddleGame from '../MiddleGame/MiddleGame';
 
 export interface Layout31WithChatProps {
     leftContent: React.ReactNode;
@@ -21,7 +22,9 @@ const Layout31WithChat: React.FC<Layout31WithChatProps> = ({ leftContent, rightC
         <Layout>
             <div className={cnLayout31WithChat('Top')}>
                 <div className={cnLayout31WithChat('LeftContent')}>{leftContent}</div>
-                <div className={cnLayout31WithChat('RightContent')}>{rightContent}</div>
+                <MiddleGame className={cnLayout31WithChat('RightContent')} title="Classic">
+                    {rightContent}
+                </MiddleGame>
                 <Chat className={cnLayout31WithChat('Chat')} />
             </div>
             <div>{bottomContent}</div>

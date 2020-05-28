@@ -27,7 +27,7 @@ const Title: React.FC<TitleProps> = ({
     type = 'h1',
     font,
     size = 'xxl',
-    line = 'xxl',
+    line,
     color = 'white',
     weight = 'bold',
     italic,

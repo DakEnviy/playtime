@@ -7,16 +7,20 @@
     }
 
     &-LeftContent {
-        width: 25.954198473%;
+        flex: 1 1 340px;
+        max-width: 380px;
+        min-width: 340px;
     }
 
     &-RightContent {
-        width: 38.167938931%;
+        flex: 1 1 500px;
         margin: 0 65px;
     }
 
     &-Chat.Chat {
-        width: 25.954198473%;
+        flex: 1 1 340px;
+        max-width: 380px;
+        min-width: 340px;
         height: 100%;
     }
 }
