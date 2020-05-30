@@ -62,6 +62,7 @@
                 font-size: $font-size-m;
                 line-height: $line-height-m;
                 text-transform: none;
+                transition: color 0.3s $nice-ease;
             }
 
             &::before {
@@ -71,6 +72,8 @@
             }
 
             & + .Button { margin-left: 4px; }
+
+            &:hover .Button-Text { color: $color-white; }
         }
     }
 }

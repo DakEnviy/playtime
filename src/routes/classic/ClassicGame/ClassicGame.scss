@@ -1,0 +1,57 @@
+
+.ClassicGame {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 500px;
+    height: 100%;
+    margin: 0 auto;
+
+    &-Main {
+        position: relative;
+        width: 320px;
+        height: 320px;
+    }
+
+    &-Canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    &-Info {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &-Time {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 35px;
+    }
+
+    & &-Digits { margin-bottom: 13px; }
+
+    & &-ProgressBar {
+        width: 90px;
+        height: 9px;
+        margin-top: 15px;
+    }
+
+    &-Fund {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    & &-FundLabel { margin-bottom: 5px; }
+
+    &-FundIcon .TextIcon-Icon {
+        width: 18px;
+        height: 18px;
+        margin-left: 5px;
+    }
+}

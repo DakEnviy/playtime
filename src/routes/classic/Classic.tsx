@@ -9,6 +9,7 @@ import Text from '../../components/Text/Text';
 import Icon from '../../components/Icon/Icon';
 import BetsTable from './BetsTable/BetsTable';
 import HistoryTable from './HistoryTable/HistoryTable';
+import ClassicGame from './ClassicGame/ClassicGame';
 
 const bets = [
     {
@@ -239,6 +240,7 @@ const Classic: React.FC = () => {
 
     return (
         <Layout31WithChat
+            title="Classic"
             leftContent={
                 <Panel
                     className={cnClassic('BetsPanel')}
@@ -252,7 +254,7 @@ const Classic: React.FC = () => {
                     <BetsTable items={bets} />
                 </Panel>
             }
-            rightContent="Блок с игрой"
+            rightContent={<ClassicGame />}
             bottomContent={
                 <Panel
                     leftHead={
