@@ -8,6 +8,7 @@ import Chat from '../../Chat/Chat';
 import MiddleGame from '../MiddleGame/MiddleGame';
 
 export interface Layout31WithChatProps {
+    title: string;
     leftContent: React.ReactNode;
     rightContent: React.ReactNode;
     bottomContent: React.ReactNode;
@@ -15,14 +16,14 @@ export interface Layout31WithChatProps {
 
 const cnLayout31WithChat = cn(s, 'Layout31WithChat');
 
-const Layout31WithChat: React.FC<Layout31WithChatProps> = ({ leftContent, rightContent, bottomContent }) => {
+const Layout31WithChat: React.FC<Layout31WithChatProps> = ({ title, leftContent, rightContent, bottomContent }) => {
     useStyles(s);
 
     return (
         <Layout>
             <div className={cnLayout31WithChat('Top')}>
                 <div className={cnLayout31WithChat('LeftContent')}>{leftContent}</div>
-                <MiddleGame className={cnLayout31WithChat('RightContent')} title="Classic">
+                <MiddleGame className={cnLayout31WithChat('RightContent')} title={title}>
                     {rightContent}
                 </MiddleGame>
                 <Chat className={cnLayout31WithChat('Chat')} />

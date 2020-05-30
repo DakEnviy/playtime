@@ -4,6 +4,7 @@
 .MiddleGame {
     position: relative;
     border-radius: 6px;
+    padding: 100px 30px 20px 30px;
     background-color: lighten($color-bg, 3%);
 
     &-Head {
