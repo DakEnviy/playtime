@@ -9,7 +9,7 @@ import ChatMessage from './Message/ChatMessage';
 import Panel from '../Panel/Panel';
 import Text from '../Text/Text';
 import Scrollable, { ScrollableRef } from '../Scrollable/Scrollable';
-import ChatMessageForm from '../forms/ChatMessageForm';
+import ChatMessageForm from '../forms/ChatMessageForm/ChatMessageForm';
 import useDeleteMessageMutation from '../../hooks/graphql/useDeleteMessageMutation';
 import useWarnChatMutation from '../../hooks/graphql/useWarnChatMutation';
 

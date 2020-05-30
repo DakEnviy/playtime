@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 
-import MessageInput, { MessageInputProps } from '../inputs/MessageInput/MessageInput';
+import MessageInput, { MessageInputProps } from '../../inputs/MessageInput/MessageInput';
 
 export interface MessageFieldProps {
     name: string;
