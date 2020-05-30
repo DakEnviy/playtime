@@ -198,6 +198,8 @@
     &_weight_semiBold .Button-Text { font-weight: 600; }
     &_weight_bold .Button-Text { font-weight: 700; }
 
+    &_upper .Button-Text { text-transform: uppercase; }
+
     &:hover .Button-Icon_withHover {
         &::before { opacity: 0; }
         &::after { opacity: 1; }

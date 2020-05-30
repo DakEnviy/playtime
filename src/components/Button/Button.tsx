@@ -15,6 +15,8 @@ export interface ButtonProps {
     color?: ButtonColor;
     size?: ButtonSize;
     weight?: ButtonWeight;
+    upper?: boolean;
+    submit?: boolean;
     icon?: IconProps['type'];
     iconHover?: IconProps['hover'];
     iconSize?: IconProps['size'];
@@ -45,6 +47,8 @@ const Button: React.FC<ButtonProps> = ({
     color = 'blue',
     size = 's',
     weight = 'bold',
+    upper,
+    submit,
     icon,
     iconHover,
     iconSize,
@@ -56,9 +60,10 @@ const Button: React.FC<ButtonProps> = ({
     useStyles(s);
 
     return (
+        // eslint-disable-next-line react/button-has-type
         <button
-            className={cnButton(clear ? null : { shape, color, size, weight }, [className])}
-            type="button"
+            className={cnButton(clear ? null : { shape, color, size, weight, upper }, [className])}
+            type={submit ? 'submit' : 'button'}
             onClick={onClick}
         >
             {icon ? (
