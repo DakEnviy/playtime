@@ -18,7 +18,7 @@ class ClassicGameStateEnded extends ClassicGameState {
         this.timerTask = setInterval(() => {
             --this.game.timer;
             if (this.game.timer === 0) {
-                this.game.createNewGame();
+                this.game.resurrect();
             }
         }, 1000);
 

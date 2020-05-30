@@ -32,6 +32,7 @@ export class ClassicGameService {
 
     // Текущее состояние игры
     public state: ClassicGameState | null = null;
+    public isUndead: boolean = true;
 
     // Рантайм поля, напрямую связянные с БД
     public gameId: string = '0';
@@ -50,6 +51,10 @@ export class ClassicGameService {
     public bets: ClassicGameBet[] = [];
     public players: Map<string, ClassicGamePlayer> = new Map();
     public betsLocker: Locker = new Locker();
+
+    public async placeBet(user: User, amount: number): Promise<void> {
+        return this.state?.placeBet(user, amount);
+    }
 
     public async createNewGame(): Promise<void> {
         await this.updateSettings();
@@ -72,12 +77,6 @@ export class ClassicGameService {
         this.currentLastTicket = 0;
         this.bets = [];
         this.players = new Map();
-
-        await this.switchTo(new ClassicGameWaitingState(this));
-    }
-
-    public async placeBet(user: User, amount: number): Promise<void> {
-        return this.state?.placeBet(user, amount);
     }
 
     public async placeBet0(user: User, amount: number): Promise<void> {
@@ -128,14 +127,6 @@ export class ClassicGameService {
         this.betsLocker.end();
     }
 
-    public async switchTo(state: ClassicGameState): Promise<void> {
-        if (this.state) {
-            await this.state.exit();
-        }
-        await state.enter();
-        this.state = state;
-    }
-
     public async updateSettings(): Promise<void> {
         this.countdownTimer = await repositories.settings.getSettingAsNumber('classic::countdownTimer');
         this.culminationTimer = await repositories.settings.getSettingAsNumber('classic::culminationTimer');
@@ -145,5 +136,44 @@ export class ClassicGameService {
             'classic::minPlayersToStartCountdown',
         );
         this.commissionPercent = await repositories.settings.getSettingAsNumber('classic::commissionPercent');
+    }
+
+    public async spawn(): Promise<void> {
+        await this.newCycle();
+    }
+
+    public async kill(): Promise<void> {
+        await this.stop();
+    }
+
+    public async resurrect(): Promise<void> {
+        if (!this.isUndead) return;
+
+        await this.newCycle();
+    }
+
+    public async newCycle(): Promise<void> {
+        await this.createNewGame();
+        await this.start();
+    }
+
+    public async start(): Promise<void> {
+        await this.switchTo(new ClassicGameWaitingState(this));
+    }
+
+    public async stop(): Promise<void> {
+        await this.state?.exit();
+    }
+
+    public async switchTo(state: ClassicGameState): Promise<void> {
+        if (this.state) {
+            await this.state.exit();
+        }
+        await state.enter();
+        this.state = state;
+    }
+
+    public setUndead(isUndead: boolean) {
+        this.isUndead = isUndead;
     }
 }
