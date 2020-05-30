@@ -7037,13 +7037,6 @@ graphql-config@3.0.0:
     minimatch "3.0.4"
     tslib "^1.11.1"
 
-graphql-custom-types@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/graphql-custom-types/-/graphql-custom-types-1.5.1.tgz#86e4b1bf8ed1b562a040a86aca35f6f153bc7281"
-  integrity sha512-jwrrRIc7KVqjOgKo4WpFv6HiRJ9h09zzEzZGAaj9zcRXTBahqw2LOje2RAE7Bu02k3tYUEkmpodrKWOy0zNJaQ==
-  dependencies:
-    graphql "^14.4.2"
-
 graphql-depth-limit@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/graphql-depth-limit/-/graphql-depth-limit-1.1.0.tgz#59fe6b2acea0ab30ee7344f4c75df39cc18244e8"
@@ -7082,6 +7075,11 @@ graphql-request@^1.5.0:
   integrity sha512-dDX2M+VMsxXFCmUX0Vo0TopIZIX4ggzOtiCsThgtrKR4niiaagsGTDIHj3fsOMFETpa064vzovI+4YV4QnMbcg==
   dependencies:
     cross-fetch "2.2.2"
+
+graphql-scalars@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/graphql-scalars/-/graphql-scalars-1.1.5.tgz#9d0485e4f67a4120400dcbfa83797fc74f2f19af"
+  integrity sha512-2Kbq8VgreOB62eKUafwp7qvyvDIS3wmw+JNzyXydQS6I986/s4ceJZs6Hc7Ex/9zBrhFsUlVIEl0a6oUqGCU/Q==
 
 graphql-shield@^7.2.6:
   version "7.2.6"
@@ -7168,7 +7166,7 @@ graphql-upload@^8.0.2:
     http-errors "^1.7.3"
     object-path "^0.11.4"
 
-graphql@^14.4.2, graphql@^14.5.3:
+graphql@^14.5.3:
   version "14.6.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.6.0.tgz#57822297111e874ea12f5cd4419616930cd83e49"
   integrity sha512-VKzfvHEKybTKjQVpTFrA5yUq2S9ihcZvfJAtsDBBCuV6wauPu1xl/f9ehgVf0FcEJJs4vz6ysb/ZMkGigQZseg==
