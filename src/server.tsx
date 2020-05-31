@@ -22,6 +22,7 @@ import passport from './passport';
 import router from './router';
 import { database } from './data/database';
 import AppModule from './data/modules/app';
+import { startServices } from './services';
 import rateLimiterMiddleware from './utils/middlewares/rateLimiterRedis';
 import { createContext, createWebSocketContext } from './utils/apollo/createContext';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
@@ -252,9 +253,12 @@ app.server = createServer(module.hot ? undefined : app);
 server.installSubscriptionHandlers(app.server);
 
 const port = module.hot ? config.devPort : config.port;
-const dbSync = database.sequelize.sync().catch((err: Error) => console.error(err.stack));
+const serverSync = database.sequelize
+    .sync()
+    .then(() => startServices())
+    .catch((err: Error) => console.error(err.stack));
 
-dbSync.then(() => {
+serverSync.then(() => {
     app.server.listen(port, () => {
         console.info(
             module.hot

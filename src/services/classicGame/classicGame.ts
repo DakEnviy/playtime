@@ -138,6 +138,11 @@ export class ClassicGameService {
         this.commissionPercent = await repositories.settings.getSettingAsNumber('classic::commissionPercent');
     }
 
+    public async initStart(): Promise<void> {
+        this.setUndead(true);
+        await this.spawn();
+    }
+
     public async spawn(): Promise<void> {
         await this.newCycle();
     }
