@@ -2,7 +2,7 @@ import { ModuleContext } from '@graphql-modules/core';
 import { chain, IRules } from 'graphql-shield';
 
 import { ChatContext } from './index';
-import { Resolver, ResolverOptions, Resolvers, TypeResolvers } from '../../../interfaces/graphql';
+import { Resolver, Resolvers, ResolverSubscriber, TypeResolvers } from '../../../interfaces/graphql';
 import { SerializedModel } from '../../../interfaces/sequelize';
 import {
     DeletedMessagePayload,
@@ -43,16 +43,13 @@ interface MutationMapping {
 }
 
 interface SubscriptionMapping {
-    sentMessage: ResolverOptions<OriginMessageParent, SerializedModel<OriginMessageParent>>;
-    deletedMessage: ResolverOptions<DeletedMessagePayload>;
-    deletedMessagesBySender: ResolverOptions<DeletedMessagesBySenderPayload>;
+    sentMessage: ResolverSubscriber<OriginMessageParent, SerializedModel<OriginMessageParent>>;
+    deletedMessage: ResolverSubscriber<DeletedMessagePayload>;
+    deletedMessagesBySender: ResolverSubscriber<DeletedMessagesBySenderPayload>;
 }
 
 interface MessageMapping {
-    id: void;
     sender: Resolver<OriginUserParent>;
-    message: void;
-    createdAt: void;
 }
 
 type ChatResolvers = Resolvers<

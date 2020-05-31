@@ -1,8 +1,5 @@
 import { Model } from 'sequelize';
 
-import { FilterFieldNamesByType } from './common';
+import { KeysByType } from './common';
 
-export type SerializedModel<TModel extends Model> = Omit<
-    TModel,
-    keyof Model | FilterFieldNamesByType<TModel, Function>
->;
+export type SerializedModel<TModel extends Model> = Omit<TModel, keyof Model | KeysByType<TModel, Function>>;
