@@ -10,15 +10,37 @@ import ClassicGameWaitingState from './states/waiting';
 
 export interface ClassicGamePlayer {
     userId: string;
+    username: string;
+    avatar: string;
     betsPrice: Big;
     chance: number;
+    startDegree: number;
+    endDegree: number;
+    color: string;
 }
 
 export interface ClassicGameBet {
     betId: string;
     userId: string;
+    amount: number;
     firstTicket: number;
     lastTicket: number;
+}
+
+export interface ClassicGameClientSnapshot {
+    gameId: string;
+    state: string;
+    randomNumber?: number;
+    hash: string;
+    fund: Big;
+    winnerId?: string;
+    winnerTicket?: number;
+    timer: number;
+    maxTimer: number;
+    bets: ClassicGameBet[];
+    players: ClassicGamePlayer[];
+    culminationDegree?: number;
+    remainingCulminationDuration?: number;
 }
 
 export class ClassicGameService {
@@ -47,13 +69,20 @@ export class ClassicGameService {
 
     // Рантайм поля, не связянные с БД
     public timer: number = 30;
+    public maxTimer: number = 30;
     public currentLastTicket: number = 0;
     public bets: ClassicGameBet[] = [];
-    public players: Map<string, ClassicGamePlayer> = new Map();
+    public players: ClassicGamePlayer[] = [];
+    public culminationDegree?: number;
+
     public betsLocker: Locker = new Locker();
 
-    public async placeBet(user: User, amount: number): Promise<void> {
-        return this.state?.placeBet(user, amount);
+    public async placeBet(user: User, amount: number): Promise<ClassicGameBet> {
+        return this.getStateStrict().placeBet(user, amount);
+    }
+
+    public async clientSnapshot(): Promise<ClassicGameClientSnapshot> {
+        return this.getStateStrict().clientSnapshot();
     }
 
     public async createNewGame(): Promise<void> {
@@ -74,12 +103,14 @@ export class ClassicGameService {
         this.finishedAt = null;
 
         this.timer = this.countdownTimer;
+        this.maxTimer = this.countdownTimer;
         this.currentLastTicket = 0;
         this.bets = [];
-        this.players = new Map();
+        this.players = [];
+        this.culminationDegree = undefined;
     }
 
-    public async placeBet0(user: User, amount: number): Promise<void> {
+    public async placeBet0(user: User, amount: number): Promise<ClassicGameBet> {
         if (amount < this.minBetAmount) {
             throw new UserError('CLASSIC_GAME_MIN_BET_PRICE_ERROR');
         }
@@ -100,19 +131,24 @@ export class ClassicGameService {
         this.fund = this.fund.plus(amount);
         this.currentLastTicket = newLastTicket;
 
-        this.bets.push({
+        const bet: ClassicGameBet = {
             betId,
             userId: user.id,
+            amount,
             firstTicket,
             lastTicket,
-        });
+        };
+        this.bets.push(bet);
 
-        const currentPlayer = this.players.get(user.id);
+        const currentPlayerIdx = this.players.findIndex(player => player.userId === user.id);
+        const currentPlayer = currentPlayerIdx !== -1 ? this.players[currentPlayerIdx] : undefined;
         const currentBetsPrice = currentPlayer ? currentPlayer.betsPrice : new Big(0);
         const newBetsPrice = currentBetsPrice.plus(amount);
 
-        this.players.set(user.id, {
+        this.players.splice(currentPlayerIdx, 1, {
             userId: user.id,
+            username: user.avatar,
+            avatar: user.avatar,
             betsPrice: newBetsPrice,
             chance: Number(
                 newBetsPrice
@@ -120,11 +156,16 @@ export class ClassicGameService {
                     .times(100)
                     .toFixed(1),
             ),
+            startDegree: 0,
+            endDegree: 0,
+            color: '#ff0000',
         });
 
         await repositories.classicGames.updateFund(this.gameId, Number(this.fund.toFixed(2)));
 
         this.betsLocker.end();
+
+        return bet;
     }
 
     public async updateSettings(): Promise<void> {
@@ -176,6 +217,13 @@ export class ClassicGameService {
         }
         await state.enter();
         this.state = state;
+    }
+
+    public getStateStrict(): ClassicGameState {
+        if (!this.state) {
+            throw new Error('State is not defined');
+        }
+        return this.state;
     }
 
     public setUndead(isUndead: boolean) {

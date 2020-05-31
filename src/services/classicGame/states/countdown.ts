@@ -1,4 +1,5 @@
 import ClassicGameState from './abstract';
+import { ClassicGameBet, ClassicGameClientSnapshot } from '../classicGame';
 import { repositories } from '../../../data/database';
 import { ClassicGameState as ClassicGameStateEnum } from '../../../data/models/ClassicGame';
 import { User } from '../../../data/models/User';
@@ -9,6 +10,7 @@ class ClassicGameStateCountdown extends ClassicGameState {
 
     public async enter() {
         this.game.timer = this.game.countdownTimer;
+        this.game.maxTimer = this.game.countdownTimer;
         this.timerTask = setInterval(() => {
             --this.game.timer;
             if (this.game.timer === 0) {
@@ -25,8 +27,21 @@ class ClassicGameStateCountdown extends ClassicGameState {
         }
     }
 
-    public async placeBet(user: User, amount: number) {
+    public async placeBet(user: User, amount: number): Promise<ClassicGameBet> {
         return this.game.placeBet0(user, amount);
+    }
+
+    public async clientSnapshot(): Promise<ClassicGameClientSnapshot> {
+        return {
+            gameId: this.game.gameId,
+            state: 'Countdown',
+            hash: this.game.hash,
+            fund: this.game.fund,
+            timer: this.game.timer,
+            maxTimer: this.game.maxTimer,
+            bets: this.game.bets,
+            players: this.game.players,
+        };
     }
 }
 
