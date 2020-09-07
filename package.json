@@ -28,14 +28,14 @@
     "classnames": "^2.2.6",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
-    "express-jwt": "^5.3.1",
+    "express-jwt": "^6.0.0",
     "graphql": "^15.0.0",
     "graphql-custom-types": "^1.5.1",
     "graphql-tag": "^2.10.1",
     "history": "^4.10.1",
     "isomorphic-style-loader": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "mysql2": "^2.1.0",
     "node-fetch": "^2.6.0",
     "normalize.css": "^8.0.1",
@@ -48,10 +48,11 @@
     "react-dom": "^16.11.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.2",
-    "serialize-javascript": "^2.1.1",
+    "serialize-javascript": "^3.1.0",
     "source-map-support": "^0.5.16",
     "universal-router": "^8.3.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "snyk": "^1.391.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -213,11 +214,14 @@
     "deploy": "babel-node --extensions \".ts\" tools/run deploy",
     "render": "babel-node --extensions \".ts\" tools/run render",
     "serve": "babel-node --extensions \".ts\" tools/run runServer",
-    "start": "babel-node --extensions \".ts\" tools/run start"
+    "start": "babel-node --extensions \".ts\" tools/run start",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "snyk": true
 }
