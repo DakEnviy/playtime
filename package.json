@@ -13,7 +13,7 @@
     "not ie < 9"
   ],
   "dependencies": {
-    "@graphql-modules/core": "^0.7.15",
+    "@graphql-modules/core": "^0.7.16",
     "@graphql-modules/di": "^0.7.15",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
@@ -37,7 +37,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mysql2": "^2.1.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "normalize.css": "^8.0.1",
     "passport": "^0.4.0",
     "passport-vkontakte": "^0.3.2",
